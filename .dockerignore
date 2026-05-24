@@ -19,5 +19,4 @@ agent-transcripts
 terminals
 assets
 scripts
-Dockerfile
 .dockerignore
