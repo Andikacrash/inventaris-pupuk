@@ -1,0 +1,177 @@
+// ============================================================
+// ERD — Sistem Inventaris & POS Pupuk
+// Salin seluruh file ini ke https://dbdiagram.io
+// Menu: Import → Paste DBML  (atau tempel langsung di panel kiri)
+// ============================================================
+
+Project inventaris_pupuk {
+  database_type: 'MySQL'
+  Note: 'Entity Relationship Diagram — Sistem Inventaris dan Point of Sale (POS) Pupuk'
+}
+
+// ---------- MASTER DATA ----------
+
+Table users {
+  id bigint [pk, increment, note: 'Primary Key']
+  name varchar(255) [not null]
+  email varchar(255) [unique, not null]
+  email_verified_at timestamp [null]
+  password varchar(255) [not null]
+  role varchar(20) [not null, default: 'kasir', note: 'admin | kasir | manager']
+  remember_token varchar(100) [null]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table categories {
+  id bigint [pk, increment]
+  name varchar(255) [not null]
+  description text [null]
+  sort_order smallint [not null, default: 100]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table suppliers {
+  id bigint [pk, increment]
+  name varchar(255) [not null]
+  contact_person varchar(255) [not null]
+  phone varchar(255) [not null]
+  email varchar(255) [null]
+  address text [not null]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table products {
+  id bigint [pk, increment]
+  name varchar(255) [not null]
+  brand varchar(255) [not null]
+  type varchar(20) [not null, note: 'organik | kimia']
+  unit varchar(20) [not null, note: 'kg | liter | karung']
+  price decimal(15,2) [not null]
+  stock_quantity int [not null, default: 0]
+  minimum_stock int [not null, default: 0]
+  description text [null]
+  image varchar(255) [null]
+  barcode varchar(255) [unique, null]
+  category_id bigint [not null, ref: > categories.id]
+  supplier_id bigint [null, ref: > suppliers.id]
+  created_at timestamp
+  updated_at timestamp
+}
+
+// ---------- PENJUALAN (POS) ----------
+
+Table sales {
+  id bigint [pk, increment]
+  invoice_number varchar(255) [unique, not null]
+  customer_name varchar(255) [not null]
+  customer_phone varchar(255) [null]
+  sale_date date [not null]
+  total_amount decimal(10,2) [not null]
+  discount decimal(10,2) [not null, default: 0]
+  payment_amount decimal(10,2) [not null, default: 0]
+  change_amount decimal(10,2) [not null, default: 0]
+  payment_method varchar(20) [not null, note: 'cash | transfer | card | credit']
+  status varchar(20) [not null, default: 'completed', note: 'pending | completed | cancelled']
+  debt_amount decimal(10,2) [null]
+  debt_status varchar(50) [null]
+  delivery_method varchar(50) [null]
+  delivery_address text [null]
+  delivery_phone varchar(255) [null]
+  user_id bigint [not null, ref: > users.id]
+  deleted_at timestamp [null, note: 'Soft delete']
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table sale_items {
+  id bigint [pk, increment]
+  sale_id bigint [not null, ref: > sales.id]
+  product_id bigint [not null, ref: > products.id]
+  quantity int [not null]
+  unit_price decimal(10,2) [not null]
+  subtotal decimal(10,2) [not null]
+  created_at timestamp
+  updated_at timestamp
+}
+
+// ---------- INVENTARIS / STOK ----------
+
+Table stock_movements {
+  id bigint [pk, increment]
+  product_id bigint [not null, ref: > products.id]
+  type varchar(10) [not null, note: 'in | out']
+  quantity int [not null]
+  reference_type varchar(50) [not null, note: 'sale | purchase | adjustment | product_create | product_edit']
+  reference_id bigint [not null]
+  notes text [null]
+  user_id bigint [not null, ref: > users.id]
+  created_at timestamp
+  updated_at timestamp
+}
+
+// ---------- HUTANG / PIUTANG ----------
+
+Table debts {
+  id bigint [pk, increment]
+  sale_id bigint [unique, not null, ref: - sales.id, note: 'Relasi 1:1 dengan sales']
+  customer_name varchar(255) [not null]
+  customer_phone varchar(255) [null]
+  total_amount decimal(15,2) [not null]
+  paid_amount decimal(15,2) [not null, default: 0]
+  remaining_amount decimal(15,2) [not null]
+  due_date date [null]
+  status varchar(20) [not null, default: 'unpaid', note: 'unpaid | partial | paid']
+  notes text [null]
+  user_id bigint [not null, ref: > users.id]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table debt_payments {
+  id bigint [pk, increment]
+  debt_id bigint [not null, ref: > debts.id]
+  amount decimal(15,2) [not null]
+  payment_date date [not null]
+  payment_method varchar(20) [not null, default: 'cash', note: 'cash | transfer | card']
+  notes text [null]
+  user_id bigint [not null, ref: > users.id]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table installment_plans {
+  id bigint [pk, increment]
+  debt_id bigint [not null, ref: > debts.id]
+  total_amount decimal(15,2) [not null]
+  installment_count int [not null]
+  installment_amount decimal(15,2) [not null]
+  frequency varchar(20) [not null, default: 'monthly', note: 'daily | weekly | monthly']
+  start_date date [not null]
+  end_date date [null]
+  paid_amount decimal(15,2) [not null, default: 0]
+  paid_count int [not null, default: 0]
+  status varchar(20) [not null, default: 'active', note: 'active | completed | cancelled']
+  notes text [null]
+  user_id bigint [not null, ref: > users.id]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table installment_payments {
+  id bigint [pk, increment]
+  installment_plan_id bigint [not null, ref: > installment_plans.id]
+  debt_id bigint [not null, ref: > debts.id]
+  installment_number int [not null]
+  amount decimal(15,2) [not null]
+  due_date date [not null]
+  payment_date date [null]
+  status varchar(20) [not null, default: 'pending', note: 'pending | paid | overdue | skipped']
+  payment_method varchar(20) [null]
+  notes text [null]
+  user_id bigint [null, ref: > users.id]
+  created_at timestamp
+  updated_at timestamp
+}

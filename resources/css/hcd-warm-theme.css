@@ -1,0 +1,1207 @@
+/**
+ * Human-Centered Design — tema Warm Neutral
+ * Untuk pengguna dewasa (50+): kontras lembut, tipografi besar, sentuhan luas.
+ */
+
+:root,
+body.ps-theme-warm {
+    --wn-bg: #f4f1ec;
+    --wn-surface: #ede8e1;
+    --wn-border: #c8bfb4;
+    /* Kontras ditingkatkan (≥6:1 ideal usia 50+) — latar #F4F1EC tidak diubah */
+    --wn-text: #1e1710;
+    --wn-muted: #4a3728;
+    --wn-accent: #1a5c42;
+    --wn-accent-hover: #144a35;
+    --wn-on-accent: #f8faf8;
+    --wn-warning: #ba7517;
+    --wn-danger: #a32d2d;
+    --wn-success: #1a5c42;
+    --wn-radius: 12px;
+    --wn-font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+
+    --ps-bg: var(--wn-bg);
+    --ps-surface: var(--wn-surface);
+    --ps-text: var(--wn-text);
+    --ps-muted: var(--wn-muted);
+    --ps-border: var(--wn-border);
+    --ps-navbar-bg: var(--wn-surface);
+    --ps-navbar-text: var(--wn-text);
+    --ps-sidebar-bg: var(--wn-surface);
+    --ps-accent: var(--wn-accent);
+    --ps-on-accent: var(--wn-on-accent);
+
+    --sa-line-primary: #1a5c42;
+    --sa-line-compare: #ba7517;
+    --sa-fill-primary: rgba(26, 92, 66, 0.14);
+    --sa-fill-compare: rgba(186, 117, 23, 0.12);
+    --sa-grid: rgba(30, 23, 16, 0.14);
+    --sa-axis: rgba(74, 55, 40, 0.9);
+    --sa-text: var(--wn-text);
+    --sa-muted: var(--wn-muted);
+    --sa-danger: var(--wn-danger);
+}
+
+body.ps-theme-warm {
+    font-family: var(--wn-font);
+    font-size: 16px;
+    line-height: 1.65;
+    font-weight: 400;
+    color: var(--wn-text);
+    background: var(--wn-bg) !important;
+    -webkit-font-smoothing: antialiased;
+}
+
+body.ps-theme-warm h1,
+body.ps-theme-warm h2,
+body.ps-theme-warm h3,
+body.ps-theme-warm h4,
+body.ps-theme-warm h5,
+body.ps-theme-warm h6,
+body.ps-theme-warm .dash-title,
+body.ps-theme-warm .cashier-inline-title {
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm .dash-title,
+body.ps-theme-warm .cashier-inline-title {
+    font-size: 1.5rem;
+}
+
+body.ps-theme-warm label,
+body.ps-theme-warm .form-label,
+body.ps-theme-warm .auth-label,
+body.ps-theme-warm .dash-stat-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--wn-muted) !important;
+}
+
+/* ——— Navbar & sidebar ——— */
+body.ps-theme-warm .ps-global-navbar {
+    background: var(--wn-surface) !important;
+    color: var(--wn-text) !important;
+    border-bottom: 0.5px solid var(--wn-border) !important;
+    box-shadow: 0 1px 0 rgba(60, 48, 32, 0.06);
+}
+
+body.ps-theme-warm .ps-global-brand,
+body.ps-theme-warm .ps-global-brand i,
+body.ps-theme-warm .ps-user-name,
+body.ps-theme-warm .ps-navbar-logout {
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm .ps-sidebar-toggle,
+body.ps-theme-warm .ps-navbar-logout,
+body.ps-theme-warm .ps-user {
+    border: 0.5px solid var(--wn-border) !important;
+    background: var(--wn-bg) !important;
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm .ps-sidebar {
+    background: var(--wn-surface) !important;
+    border-right: 0.5px solid var(--wn-border) !important;
+    box-shadow: none !important;
+}
+
+body.ps-theme-warm .ps-brand {
+    background: var(--wn-bg) !important;
+    border: 0.5px solid var(--wn-border) !important;
+    box-shadow: none !important;
+}
+
+body.ps-theme-warm .ps-brand-icon {
+    background: var(--wn-accent) !important;
+    color: var(--wn-on-accent) !important;
+    box-shadow: none !important;
+}
+
+body.ps-theme-warm .ps-brand-title {
+    color: var(--wn-text) !important;
+    font-weight: 500;
+}
+
+body.ps-theme-warm .ps-brand-subtitle,
+body.ps-theme-warm .ps-nav-section {
+    color: var(--wn-muted) !important;
+}
+
+body.ps-theme-warm .ps-nav-item,
+body.ps-theme-warm .ps-nav-item i,
+body.ps-theme-warm .ps-footer-item,
+body.ps-theme-warm .ps-footer-item i {
+    color: var(--wn-muted) !important;
+    font-size: 15px;
+}
+
+body.ps-theme-warm .ps-nav-item:hover,
+body.ps-theme-warm .ps-footer-item:hover {
+    background: rgba(60, 48, 32, 0.06) !important;
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm .ps-nav-item.active {
+    background: rgba(46, 125, 94, 0.14) !important;
+    border-left: 3px solid var(--wn-accent) !important;
+    color: var(--wn-accent) !important;
+    box-shadow: none !important;
+}
+
+body.ps-theme-warm .ps-nav-item.active i {
+    color: var(--wn-accent) !important;
+}
+
+body.ps-theme-warm .ps-sidebar-footer {
+    border-top-color: var(--wn-border) !important;
+}
+
+body.ps-theme-warm .ps-footer-item.danger,
+body.ps-theme-warm .ps-footer-item.danger i {
+    color: var(--wn-danger) !important;
+}
+
+body.ps-theme-warm .ps-layout,
+body.ps-theme-warm .ps-main,
+body.ps-theme-warm .ps-content {
+    background: var(--wn-bg) !important;
+    color: var(--wn-text) !important;
+}
+
+/* ——— Kartu & panel ——— */
+body.ps-theme-warm .dash-page {
+    background: var(--wn-bg) !important;
+    color: var(--wn-text) !important;
+    padding: 20px 20px 24px !important;
+    min-height: calc(100vh - 80px);
+}
+
+body.ps-theme-warm .dash-subtitle {
+    color: var(--wn-muted) !important;
+    font-size: 16px;
+}
+
+body.ps-theme-warm .dash-stat-card,
+body.ps-theme-warm .dash-stat-card--hero,
+body.ps-theme-warm .dash-panel,
+body.ps-theme-warm .dash-list-item,
+body.ps-theme-warm .dashboard-mini-stat,
+body.ps-theme-warm .sa-stat,
+body.ps-theme-warm .sa-stat-card,
+body.ps-theme-warm .product-list-page,
+body.ps-theme-warm .premium-filter-card,
+body.ps-theme-warm .premium-panel,
+body.ps-theme-warm .premium-table-card,
+body.ps-theme-warm .stock-stat-card,
+body.ps-theme-warm .debt-item-card {
+    background: var(--wn-surface) !important;
+    border: 0.5px solid var(--wn-border) !important;
+    border-radius: var(--wn-radius) !important;
+    box-shadow: none !important;
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm .dash-stat-value,
+body.ps-theme-warm .dash-list-title,
+body.ps-theme-warm .dash-panel h3,
+body.ps-theme-warm .dash-list-value,
+body.ps-theme-warm .dashboard-mini-value,
+body.ps-theme-warm .sa-stat-v,
+body.ps-theme-warm .product-list-title {
+    color: var(--wn-text) !important;
+    text-shadow: none !important;
+}
+
+body.ps-theme-warm .dash-stat-card--hero .dash-stat-value,
+body.ps-theme-warm .dash-stat-value,
+body.ps-theme-warm .dash-list-value,
+body.ps-theme-warm .dashboard-mini-value,
+body.ps-theme-warm .stat-value,
+body.ps-theme-warm .price-cell,
+body.ps-theme-warm .sa-stat-v {
+    font-weight: 600 !important;
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm .dash-stat-card--hero .dash-stat-value {
+    font-size: clamp(1.2rem, 2.2vw, 1.45rem) !important;
+    letter-spacing: -0.01em;
+}
+
+body.ps-theme-warm .dash-stat-value {
+    font-size: clamp(1.2rem, 2.2vw, 1.4rem) !important;
+}
+
+body.ps-theme-warm .dash-list-value,
+body.ps-theme-warm .stat-value {
+    font-size: 17px !important;
+}
+
+body.ps-theme-warm a:not(.btn):not(.ps-nav-item):not(.ps-footer-item):not(.dash-stat-link) {
+    color: var(--wn-accent);
+    font-weight: 500;
+}
+
+body.ps-theme-warm a:not(.btn):not(.ps-nav-item):not(.ps-footer-item):not(.dash-stat-link):hover {
+    color: var(--wn-accent-hover);
+}
+
+/* Kartu statistik dashboard: jangan pakai gaya link (garis bawah hijau) */
+body.ps-theme-warm a.dash-stat-link,
+body.ps-theme-warm a.dash-stat-link:hover,
+body.ps-theme-warm a.dash-stat-link:focus {
+    text-decoration: none !important;
+    color: inherit !important;
+    font-weight: inherit;
+}
+
+body.ps-theme-warm a.dash-stat-link .dash-stat-label,
+body.ps-theme-warm a.dash-stat-link .dash-stat-value,
+body.ps-theme-warm a.dash-stat-link .dash-stat-note {
+    text-decoration: none !important;
+}
+
+body.ps-theme-warm a.dash-stat-link.dash-stat-warning .dash-stat-label,
+body.ps-theme-warm a.dash-stat-link.dash-stat-warning .dash-stat-value,
+body.ps-theme-warm a.dash-stat-link .dash-stat-warning .dash-stat-label,
+body.ps-theme-warm a.dash-stat-link .dash-stat-warning .dash-stat-value,
+body.ps-theme-warm a.dash-stat-link .dash-stat-warning .dash-stat-note {
+    color: var(--wn-warning) !important;
+}
+
+body.ps-theme-warm .dash-stat-note,
+body.ps-theme-warm .dash-list-subtitle,
+body.ps-theme-warm .product-list-subtitle,
+body.ps-theme-warm .dashboard-mini-label,
+body.ps-theme-warm .sa-stat-sub,
+body.ps-theme-warm .sa-stat-k {
+    color: var(--wn-muted) !important;
+}
+
+body.ps-theme-warm .dash-list-subtitle,
+body.ps-theme-warm .dash-list-value.success {
+    color: var(--wn-accent) !important;
+}
+
+body.ps-theme-warm .dash-stat-warning {
+    background: rgba(186, 117, 23, 0.1) !important;
+    border-color: rgba(186, 117, 23, 0.45) !important;
+}
+
+body.ps-theme-warm .dash-stat-warning .dash-stat-label,
+body.ps-theme-warm .dash-stat-warning .dash-stat-value,
+body.ps-theme-warm .dash-stat-warning .dash-stat-note {
+    color: var(--wn-warning) !important;
+}
+
+body.ps-theme-warm .dash-stat-warning::after {
+    color: var(--wn-warning);
+}
+
+body.ps-theme-warm .dash-list-value.danger {
+    color: var(--wn-danger) !important;
+}
+
+body.ps-theme-warm .dash-list-value.warning {
+    color: var(--wn-warning) !important;
+}
+
+body.ps-theme-warm .dash-debt-alert {
+    background: rgba(163, 45, 45, 0.08) !important;
+    border: 0.5px solid rgba(163, 45, 45, 0.35) !important;
+    color: var(--wn-danger) !important;
+    font-size: 15px;
+    padding: 12px 14px;
+}
+
+body.ps-theme-warm .dash-list-empty {
+    border-color: var(--wn-border) !important;
+    color: var(--wn-muted) !important;
+}
+
+body.ps-theme-warm .dash-top-product-track {
+    background: rgba(60, 48, 32, 0.08) !important;
+}
+
+body.ps-theme-warm .dash-top-product-fill.is-primary {
+    background: var(--wn-accent) !important;
+}
+
+body.ps-theme-warm .dash-top-product-fill.is-secondary {
+    background: #4a3728 !important;
+}
+
+body.ps-theme-warm .dash-top-product-name {
+    color: var(--wn-muted) !important;
+    text-transform: none;
+    font-size: 14px;
+}
+
+body.ps-theme-warm #period-sales-note {
+    color: var(--wn-accent) !important;
+}
+
+body.ps-theme-warm .dash-stat-ico,
+body.ps-theme-warm .sa-stat-ico {
+    width: 40px !important;
+    height: 40px !important;
+    flex: 0 0 40px !important;
+    border-width: 1.5px !important;
+}
+
+body.ps-theme-warm .dash-stat-ico svg,
+body.ps-theme-warm .sa-stat-ico svg {
+    width: 22px !important;
+    height: 22px !important;
+}
+
+body.ps-theme-warm .dash-stat-warning::after {
+    display: none !important;
+}
+
+/* ——— Form & tombol ——— */
+body.ps-theme-warm .ps-content .form-control,
+body.ps-theme-warm .ps-content .form-select,
+body.ps-theme-warm .ps-content .input-group-text,
+body.ps-theme-warm .sa-select,
+body.ps-theme-warm .dash-page .form-select {
+    min-height: 44px;
+    padding: 10px 14px;
+    font-size: 16px;
+    border-radius: var(--wn-radius);
+    background: var(--wn-bg) !important;
+    border: 0.5px solid var(--wn-border) !important;
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm .ps-content .form-control:focus,
+body.ps-theme-warm .ps-content .form-select:focus,
+body.ps-theme-warm .sa-select:focus {
+    border-color: var(--wn-accent) !important;
+    box-shadow: 0 0 0 3px rgba(46, 125, 94, 0.18) !important;
+}
+
+body.ps-theme-warm .ps-content .btn {
+    min-height: 44px;
+    padding: 10px 18px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: var(--wn-radius);
+}
+
+body.ps-theme-warm .ps-content .btn-primary,
+body.ps-theme-warm .dash-panel .btn-primary,
+body.ps-theme-warm .checkout-btn {
+    min-height: 48px !important;
+    background: var(--wn-accent) !important;
+    border-color: var(--wn-accent) !important;
+    color: var(--wn-on-accent) !important;
+    box-shadow: none !important;
+}
+
+body.ps-theme-warm .ps-content .btn-primary:hover,
+body.ps-theme-warm .dash-panel .btn-primary:hover,
+body.ps-theme-warm .checkout-btn:hover:not(:disabled) {
+    background: var(--wn-accent-hover) !important;
+    border-color: var(--wn-accent-hover) !important;
+    transform: none !important;
+}
+
+body.ps-theme-warm .ps-content .btn-outline-primary,
+body.ps-theme-warm .dash-panel .btn-outline-primary {
+    background: var(--wn-bg) !important;
+    border: 0.5px solid var(--wn-border) !important;
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm .ps-content .btn-outline-primary:hover {
+    border-color: var(--wn-accent) !important;
+    color: var(--wn-accent) !important;
+    background: rgba(46, 125, 94, 0.08) !important;
+}
+
+body.ps-theme-warm .ps-content .text-muted {
+    color: var(--wn-muted) !important;
+}
+
+/* ——— Tabel produk / laporan ——— */
+body.ps-theme-warm .product-table-wrapper {
+    background: var(--wn-surface) !important;
+    border: 0.5px solid var(--wn-border) !important;
+}
+
+body.ps-theme-warm .product-table thead th {
+    background: var(--wn-bg) !important;
+    color: var(--wn-muted) !important;
+    border-color: var(--wn-border) !important;
+}
+
+body.ps-theme-warm .product-table tbody td {
+    color: var(--wn-text) !important;
+    border-color: var(--wn-border) !important;
+}
+
+body.ps-theme-warm .product-pagination .page-link {
+    background: var(--wn-bg) !important;
+    border: 0.5px solid var(--wn-border) !important;
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm .product-pagination .page-item.active .page-link {
+    background: rgba(46, 125, 94, 0.15) !important;
+    border-color: var(--wn-accent) !important;
+    color: var(--wn-accent) !important;
+}
+
+/* ——— Sales Analysis (React) ——— */
+body.ps-theme-warm .sa-panel,
+body.ps-theme-warm .sa-title {
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm .sa-toggle {
+    border: 0.5px solid var(--wn-border) !important;
+    background: var(--wn-bg) !important;
+}
+
+body.ps-theme-warm .sa-toggle-btn {
+    color: var(--wn-muted) !important;
+    font-size: 14px;
+}
+
+body.ps-theme-warm .sa-toggle-btn.is-active {
+    background: rgba(46, 125, 94, 0.15) !important;
+    color: var(--wn-accent) !important;
+}
+
+body.ps-theme-warm .sa-legend-text {
+    color: var(--wn-muted) !important;
+}
+
+body.ps-theme-warm .sa-error {
+    color: var(--wn-danger) !important;
+}
+
+/* ——— Alert Bootstrap ——— */
+body.ps-theme-warm .alert-success {
+    background: rgba(46, 125, 94, 0.12);
+    border-color: rgba(46, 125, 94, 0.35);
+    color: #1e4d3a;
+}
+
+body.ps-theme-warm .alert-danger {
+    background: rgba(163, 45, 45, 0.1);
+    border-color: rgba(163, 45, 45, 0.35);
+    color: var(--wn-danger);
+}
+
+body.ps-theme-warm .modal-content {
+    background: var(--wn-surface);
+    border: 0.5px solid var(--wn-border);
+    border-radius: var(--wn-radius);
+    color: var(--wn-text);
+}
+
+body.ps-theme-warm .modal-header {
+    border-bottom-color: var(--wn-border);
+}
+
+/* ——— Auth (login/register) ——— */
+body.auth-guest-scope.ps-theme-warm {
+    color-scheme: light;
+    --auth-page-bg: var(--wn-bg);
+    --auth-aside-bg: var(--wn-surface);
+    --auth-panel-bg: var(--wn-surface);
+    --auth-line: var(--wn-border);
+    --auth-ink: var(--wn-text);
+    --auth-muted: var(--wn-muted);
+    --auth-input-bg: var(--wn-bg);
+    --auth-accent: var(--wn-accent);
+    --auth-accent-hover: var(--wn-accent-hover);
+    background: var(--wn-bg) !important;
+    color: var(--wn-text) !important;
+}
+
+body.auth-guest-scope.ps-theme-warm .auth-aside-mark {
+    background: rgba(46, 125, 94, 0.12) !important;
+    border-color: rgba(46, 125, 94, 0.3) !important;
+    color: var(--wn-accent) !important;
+}
+
+body.auth-guest-scope.ps-theme-warm .auth-tab.is-active {
+    border-bottom-color: var(--wn-accent) !important;
+}
+
+body.auth-guest-scope.ps-theme-warm .auth-submit {
+    background: var(--wn-accent) !important;
+    color: var(--wn-on-accent) !important;
+}
+
+body.auth-guest-scope.ps-theme-warm .auth-admin-strip {
+    background: rgba(46, 125, 94, 0.1) !important;
+    border-color: rgba(46, 125, 94, 0.28) !important;
+}
+
+body.auth-guest-scope.ps-theme-warm .auth-admin-strip-link {
+    color: var(--wn-accent) !important;
+}
+
+body.auth-guest-scope.ps-theme-warm .auth-aside-kicker {
+    color: var(--wn-muted) !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+body.auth-guest-scope.ps-theme-warm .auth-aside-title {
+    color: var(--wn-text) !important;
+    font-size: 1.4rem !important;
+    font-weight: 600 !important;
+}
+
+body.auth-guest-scope.ps-theme-warm .auth-aside-text {
+    color: var(--wn-muted) !important;
+    font-size: 16px !important;
+    line-height: 1.55 !important;
+}
+
+body.auth-guest-scope.ps-theme-warm .auth-panel-lead {
+    color: var(--wn-muted) !important;
+    font-size: 16px !important;
+    line-height: 1.55 !important;
+    font-weight: 500 !important;
+}
+
+body.auth-guest-scope.ps-theme-warm .auth-label {
+    color: var(--wn-text) !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0 !important;
+}
+
+body.auth-guest-scope.ps-theme-warm .auth-page .form-control.auth-input {
+    font-size: 16px !important;
+    min-height: 48px !important;
+}
+
+body.auth-guest-scope.ps-theme-warm .auth-page .form-control.auth-input::placeholder {
+    color: var(--wn-muted) !important;
+    opacity: 0.9 !important;
+}
+
+body.auth-guest-scope.ps-theme-warm .auth-row .form-check-label {
+    color: var(--wn-text) !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+}
+
+body.auth-guest-scope.ps-theme-warm .auth-toggle-pw {
+    color: var(--wn-muted) !important;
+}
+
+body.auth-guest-scope.ps-theme-warm .auth-toggle-pw:hover {
+    color: var(--wn-accent) !important;
+    background: rgba(26, 92, 66, 0.08) !important;
+}
+
+body.auth-guest-scope.ps-theme-warm .auth-submit {
+    font-size: 16px !important;
+    min-height: 50px !important;
+}
+
+body.auth-guest-scope.ps-theme-warm .auth-login-hint {
+    margin: 1.25rem 0 0 !important;
+    padding: 12px 14px !important;
+    font-size: 15px !important;
+    line-height: 1.55 !important;
+    color: var(--wn-muted) !important;
+    background: var(--wn-bg) !important;
+    border: 1px solid var(--wn-border) !important;
+    border-radius: 10px !important;
+}
+
+body.auth-guest-scope.ps-theme-warm .auth-login-hint strong {
+    color: var(--wn-accent) !important;
+    font-weight: 700 !important;
+}
+
+body.auth-guest-scope.ps-theme-warm .auth-footnote {
+    color: var(--wn-muted) !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+
+body.auth-guest-scope.ps-theme-warm .auth-frame {
+    border: 1px solid var(--wn-border) !important;
+    box-shadow: 0 4px 24px rgba(60, 48, 32, 0.08) !important;
+}
+
+/* ——— POS khusus ——— */
+body.ps-theme-warm.ps-page-sales .pos-search-input,
+body.ps-theme-warm .discount-input-small {
+    min-height: 44px;
+    font-size: 16px;
+}
+
+body.ps-theme-warm .pos-view-toggle {
+    background: var(--wn-bg) !important;
+    border: 0.5px solid var(--wn-border) !important;
+}
+
+body.ps-theme-warm .pos-view-btn {
+    min-width: 72px;
+    width: auto;
+    padding: 0 12px;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--wn-muted) !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+body.ps-theme-warm .pos-view-btn__label {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+body.ps-theme-warm .pos-view-btn:hover:not(.active) {
+    background: rgba(60, 48, 32, 0.06) !important;
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm .pos-view-btn.active {
+    background: #d4ebe3 !important;
+    border: 1.5px solid #1a5c42 !important;
+    color: #1a5c42 !important;
+    font-weight: 600 !important;
+    box-shadow: none !important;
+}
+
+body.ps-theme-warm .pos-cat-tab {
+    background: var(--wn-bg) !important;
+    border: 1.5px solid var(--wn-border) !important;
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm .pos-cat-tab .pos-cat-tab__ico {
+    color: var(--wn-muted) !important;
+}
+
+body.ps-theme-warm .pos-cat-tab:hover:not(.active) {
+    background: #ebe6e0 !important;
+    border-color: var(--wn-border) !important;
+}
+
+body.ps-theme-warm .pos-cat-tab:hover:not(.active) .pos-cat-tab__ico {
+    color: var(--wn-accent) !important;
+}
+
+body.ps-theme-warm .pos-cat-tab.active {
+    background: #1a5c42 !important;
+    border-color: #144a35 !important;
+    color: #f8faf8 !important;
+    box-shadow: 0 3px 10px rgba(26, 92, 66, 0.28) !important;
+}
+
+body.ps-theme-warm .pos-cat-tab.active .pos-cat-tab__ico,
+body.ps-theme-warm .pos-cat-tab.active .pos-cat-tab__label {
+    color: #f8faf8 !important;
+}
+
+body.ps-theme-warm .pos-cat-tab.active .pos-cat-tab__badge {
+    background: rgba(255, 255, 255, 0.25) !important;
+    color: #f8faf8 !important;
+    border-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+body.ps-theme-warm .pos-cat-tab.active:hover {
+    background: #144a35 !important;
+    border-color: #0f3d2e !important;
+    color: #f8faf8 !important;
+}
+
+body.ps-theme-warm .pos-pc-price,
+body.ps-theme-warm .pos-pr-price {
+    color: #1a5c42 !important;
+    font-weight: 700 !important;
+}
+
+body.ps-theme-warm .pos-pc-add-btn,
+body.ps-theme-warm .pos-pc-add-btn--row {
+    background: #1a5c42 !important;
+    border: 1.5px solid #144a35 !important;
+    color: #f8faf8 !important;
+}
+
+body.ps-theme-warm .pos-pc-add-btn:hover:not(:disabled) {
+    background: #144a35 !important;
+    filter: none !important;
+}
+
+body.ps-theme-warm .cart-sidebar-card,
+body.ps-theme-warm .products-toolbar-section,
+body.ps-theme-warm .products-list-section {
+    border-radius: var(--wn-radius) !important;
+    border: 0.5px solid var(--wn-border) !important;
+}
+
+body.ps-theme-warm .total-row #cart-total-sidebar {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--wn-text);
+}
+
+/* Mobile overlay */
+body.ps-theme-warm.ps-sidebar-mobile-open::before {
+    background: rgba(60, 48, 32, 0.35) !important;
+}
+
+/* ——— Halaman Barang (inline style override) ——— */
+body.ps-theme-warm.products-page .product-modern-page {
+    background: var(--wn-bg) !important;
+    color: var(--wn-text) !important;
+    border: 0.5px solid var(--wn-border) !important;
+    border-radius: var(--wn-radius) !important;
+    padding: 20px !important;
+}
+
+body.ps-theme-warm.products-page .product-modern-title {
+    font-size: 1.35rem !important;
+    font-weight: 500 !important;
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm.products-page .product-modern-subtitle {
+    font-size: 15px !important;
+    color: var(--wn-muted) !important;
+}
+
+body.ps-theme-warm.products-page .product-stat-card,
+body.ps-theme-warm.products-page .product-modern-table-wrap {
+    background: var(--wn-surface) !important;
+    border: 0.5px solid var(--wn-border) !important;
+}
+
+body.ps-theme-warm.products-page .stat-label {
+    font-size: 14px !important;
+    color: var(--wn-muted) !important;
+    text-transform: none !important;
+}
+
+body.ps-theme-warm.products-page .stat-value {
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm.products-page .stat-badge.warning {
+    background: rgba(186, 117, 23, 0.15) !important;
+    color: var(--wn-warning) !important;
+}
+
+body.ps-theme-warm.products-page .stat-badge.success {
+    background: rgba(46, 125, 94, 0.12) !important;
+    color: var(--wn-accent) !important;
+}
+
+body.ps-theme-warm.products-page .product-search-wrap input,
+body.ps-theme-warm.products-page .toolbar-select .form-select {
+    min-height: 44px !important;
+    font-size: 16px !important;
+    background: var(--wn-bg) !important;
+    border: 0.5px solid var(--wn-border) !important;
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm.products-page .product-search-wrap input:focus,
+body.ps-theme-warm.products-page .toolbar-select .form-select:focus {
+    border-color: var(--wn-accent) !important;
+    box-shadow: 0 0 0 3px rgba(46, 125, 94, 0.18) !important;
+}
+
+body.ps-theme-warm.products-page .btn-modern-outline {
+    background: var(--wn-bg) !important;
+    border: 0.5px solid var(--wn-border) !important;
+    color: var(--wn-text) !important;
+    min-height: 44px !important;
+    font-size: 15px !important;
+}
+
+body.ps-theme-warm.products-page .product-form-modal button.product-save-btn[type="submit"],
+body.ps-theme-warm.products-page .product-form-modal .product-save-btn {
+    background-color: #1a5c42 !important;
+    background-image: none !important;
+    border: 1.5px solid #144a35 !important;
+    color: #f8faf8 !important;
+    min-height: 48px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 3px 10px rgba(26, 92, 66, 0.28) !important;
+}
+
+body.ps-theme-warm.products-page .product-form-modal button.product-save-btn[type="submit"]:hover,
+body.ps-theme-warm.products-page .product-form-modal .product-save-btn:hover {
+    background-color: #144a35 !important;
+    color: #f8faf8 !important;
+}
+
+body.ps-theme-warm.products-page .btn-modern-primary {
+    background: var(--wn-accent) !important;
+    border-color: var(--wn-accent) !important;
+    color: var(--wn-on-accent) !important;
+    min-height: 48px !important;
+    font-size: 16px !important;
+}
+
+body.ps-theme-warm.products-page .product-modern-table {
+    --bs-table-bg: var(--wn-surface) !important;
+    --bs-table-color: var(--wn-text) !important;
+    --bs-table-hover-bg: var(--wn-bg) !important;
+    --bs-table-striped-bg: var(--wn-surface) !important;
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm.products-page .product-modern-table thead th {
+    background: var(--wn-bg) !important;
+    color: var(--wn-muted) !important;
+    font-size: 14px !important;
+}
+
+body.ps-theme-warm.products-page .product-modern-table tbody td {
+    font-size: 15px !important;
+    color: var(--wn-text) !important;
+    background: var(--wn-surface) !important;
+    border-color: var(--wn-border) !important;
+}
+
+body.ps-theme-warm.products-page .product-modern-table tbody td,
+body.ps-theme-warm.products-page .product-modern-table tbody td *:not(.category-pill):not(.status-dot) {
+    color: var(--wn-text);
+}
+
+body.ps-theme-warm.products-page .product-modern-table .text-muted {
+    color: var(--wn-muted) !important;
+    font-size: 14px !important;
+}
+
+body.ps-theme-warm.products-page .code-chip {
+    color: var(--wn-text) !important;
+    background: var(--wn-bg) !important;
+    border: 0.5px solid var(--wn-border) !important;
+    font-weight: 600 !important;
+}
+
+body.ps-theme-warm.products-page .status-active {
+    color: var(--wn-text) !important;
+    font-weight: 600 !important;
+}
+
+body.ps-theme-warm.products-page .stock-top span {
+    color: var(--wn-text) !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+}
+
+body.ps-theme-warm.products-page .action-edit {
+    color: #ffffff !important;
+    background: #1d6fd4 !important;
+    border: 2px solid #1d6fd4 !important;
+}
+
+body.ps-theme-warm.products-page .action-edit:hover {
+    background: #1558ab !important;
+    border-color: #1558ab !important;
+    color: #ffffff !important;
+}
+
+body.ps-theme-warm.products-page .action-delete {
+    color: #ffffff !important;
+    background: #c62828 !important;
+    border: 2px solid #c62828 !important;
+}
+
+body.ps-theme-warm.products-page .action-delete .action-icon-svg {
+    width: 22px !important;
+    height: 22px !important;
+}
+
+body.ps-theme-warm.products-page .action-delete:hover {
+    background: #a31f1f !important;
+    border-color: #a31f1f !important;
+    color: #ffffff !important;
+}
+
+body.ps-theme-warm.products-page .category-pill {
+    display: inline-block !important;
+    padding: 8px 12px !important;
+    border-radius: 10px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.45 !important;
+    border-width: 1.5px !important;
+    white-space: normal !important;
+    overflow: visible !important;
+}
+
+body.ps-theme-warm.reports-page .sales-report-page,
+body.ps-theme-warm.reports-page .sales-shell {
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm.reports-page .sales-table tbody td,
+body.ps-theme-warm.reports-page .sales-kpi-value,
+body.ps-theme-warm.reports-page .sales-title {
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm.reports-page .sales-table .sales-act-btn {
+    border-style: solid !important;
+    font-weight: 700 !important;
+}
+
+body.ps-theme-warm.reports-page .sales-btn-excel-quick,
+body.ps-theme-warm.reports-page .sales-download-toggle:not(.sales-download-toggle--sm) {
+    color: var(--wn-on-accent) !important;
+}
+
+body.ps-theme-warm.reports-page .sales-download-toggle--sm {
+    background: var(--wn-bg) !important;
+    color: var(--wn-accent) !important;
+    border: 2px solid var(--wn-accent) !important;
+}
+
+body.ps-theme-warm.products-page .product-form-modal.modal {
+    --bs-modal-bg: var(--wn-surface) !important;
+    --bs-modal-color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm.products-page .product-form-content,
+body.ps-theme-warm.products-page .product-form-body {
+    background: var(--wn-surface) !important;
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm.products-page .product-form-header,
+body.ps-theme-warm.products-page .product-form-footer {
+    background: var(--wn-bg) !important;
+    border-color: var(--wn-border) !important;
+}
+
+body.ps-theme-warm.products-page .product-form-header .modal-title {
+    color: var(--wn-text) !important;
+    font-weight: 600 !important;
+}
+
+body.ps-theme-warm.products-page .product-form-modal .form-control,
+body.ps-theme-warm.products-page .product-form-modal .form-select {
+    background: var(--wn-bg) !important;
+    color: var(--wn-text) !important;
+    border-color: var(--wn-border) !important;
+    min-height: 44px !important;
+}
+
+body.ps-theme-warm.products-page .product-section-label {
+    background: #d4ebe3 !important;
+    color: var(--wn-accent) !important;
+    border-color: var(--wn-accent) !important;
+}
+
+body.ps-theme-warm.products-page .category-pill-pupuk,
+body.ps-theme-warm.products-page .category-pill-npk,
+body.ps-theme-warm.products-page .category-pill-kimia,
+body.ps-theme-warm.products-page .category-pill-herbisida {
+    background: #d4ebe3 !important;
+    color: #1a5c42 !important;
+    border-color: #1a5c42 !important;
+}
+
+body.ps-theme-warm.debts-page .debt-premium-page {
+    --debt-fg: var(--wn-text);
+    --debt-fg-soft: var(--wn-text);
+    --debt-muted: var(--wn-muted);
+    --debt-surface-2: var(--wn-surface);
+    --debt-surface-head: var(--wn-bg);
+    --debt-border: var(--wn-border);
+    --debt-accent: var(--wn-accent);
+    --debt-accent-hover: var(--wn-accent-hover);
+    --debt-accent-soft: rgba(26, 92, 66, 0.12);
+    --debt-accent-fg: var(--wn-accent);
+    --debt-btn-fg: var(--wn-on-accent);
+}
+
+body.ps-theme-warm.debts-page .debt-premium-title {
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm.debts-page .debt-premium-subtitle,
+body.ps-theme-warm.debts-page .debt-toolbar-note,
+body.ps-theme-warm.debts-page .debt-group-hint,
+body.ps-theme-warm.debts-page .debt-kpi-hint {
+    font-size: 15px !important;
+    color: var(--wn-muted) !important;
+}
+
+body.ps-theme-warm.debts-page .debt-kpi-label {
+    font-size: 14px !important;
+    color: var(--wn-muted) !important;
+}
+
+body.ps-theme-warm.debts-page .debt-kpi-value {
+    font-size: 1.25rem !important;
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm.debts-page .debt-toolbar,
+body.ps-theme-warm.debts-page .debt-kpi-grid,
+body.ps-theme-warm.debts-page .debt-table-wrap {
+    background: var(--wn-bg) !important;
+    border-color: var(--wn-border) !important;
+}
+
+body.ps-theme-warm.debts-page .debt-view-toggle a.active,
+body.ps-theme-warm.debts-page .debt-filter-pill.active {
+    background: rgba(26, 92, 66, 0.14) !important;
+    color: var(--wn-accent) !important;
+    font-weight: 700 !important;
+}
+
+body.ps-theme-warm.debts-page .debt-warn-text {
+    color: var(--wn-warning) !important;
+    font-weight: 600 !important;
+}
+
+body.ps-theme-warm.debts-page .debt-duplicate-warning {
+    color: #7a4e0f !important;
+    background: rgba(186, 117, 23, 0.12) !important;
+    border-color: rgba(186, 117, 23, 0.35) !important;
+    font-size: 15px !important;
+}
+
+body.ps-theme-warm.debts-page .debt-data-table thead th {
+    font-size: 15px !important;
+    color: var(--wn-text) !important;
+    background: var(--wn-bg) !important;
+}
+
+body.ps-theme-warm.debts-page .debt-search input[type='search'] {
+    font-size: 16px !important;
+}
+
+body.ps-theme-warm.debts-page button.debt-btn-expand {
+    min-height: 44px !important;
+    font-size: 15px !important;
+}
+
+/* Badge status hutang — teks gelap, latar jelas (hindari kuning muda di krem) */
+body.ps-theme-warm.debts-page .debt-status-badge {
+    font-size: 0.875rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.01em;
+}
+
+body.ps-theme-warm.debts-page .debt-status-badge.unpaid {
+    color: #7f1d1d !important;
+    background: #fecaca !important;
+    border-color: #ef4444 !important;
+}
+
+body.ps-theme-warm.debts-page .debt-status-badge.partial {
+    color: #78350f !important;
+    background: #fde68a !important;
+    border-color: #d97706 !important;
+}
+
+body.ps-theme-warm.debts-page .debt-status-badge.paid {
+    color: #14532d !important;
+    background: #bbf7d0 !important;
+    border-color: #22c55e !important;
+}
+
+/* Halaman detail hutang — teks & tabel terbaca di kartu terang */
+body.ps-theme-warm.debts-page .debt-detail-page {
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm.debts-page .debt-detail-page .debt-detail-table th {
+    color: var(--wn-muted) !important;
+    background: var(--wn-bg) !important;
+}
+
+body.ps-theme-warm.debts-page .debt-detail-page .debt-detail-table td {
+    color: var(--wn-text) !important;
+}
+
+body.ps-theme-warm.debts-page .debt-detail-page label.debt-detail-form-label,
+body.ps-theme-warm.debts-page .debt-detail-page .debt-detail-hint,
+body.ps-theme-warm.debts-page .debt-detail-page .debt-detail-eyebrow,
+body.ps-theme-warm.debts-page .debt-detail-page .debt-detail-hero-side .label,
+body.ps-theme-warm.debts-page .debt-detail-page .debt-detail-remain-box .t {
+    color: var(--wn-muted) !important;
+}
+
+body.ps-theme-warm.debts-page .debt-detail-page .debt-detail-input,
+body.ps-theme-warm.debts-page .debt-detail-page .debt-detail-select,
+body.ps-theme-warm.debts-page .debt-detail-page .debt-detail-textarea {
+    background: #fff !important;
+    color: var(--wn-text) !important;
+    border-color: var(--wn-border) !important;
+}
+
+body.ps-theme-warm.debts-page .debt-detail-hero,
+body.ps-theme-warm.debts-page .debt-detail-card,
+body.ps-theme-warm.debts-page .debt-detail-stat,
+body.ps-theme-warm.debts-page .debt-detail-pay-panel,
+body.ps-theme-warm.debts-page .debt-detail-remain-box {
+    border: 1.5px solid #9a8468 !important;
+    box-shadow: 0 1px 0 rgba(60, 48, 32, 0.06), 0 2px 8px rgba(60, 48, 32, 0.08) !important;
+}
+
+body.ps-theme-warm.debts-page .debt-detail-card__head,
+body.ps-theme-warm.debts-page .debt-detail-page .debt-detail-table th {
+    border-bottom: 1.5px solid #9a8468 !important;
+}
+
+/* Hutang pelanggan — responsif penuh di tab & HP */
+body.ps-theme-warm.debts-page .ps-content {
+    padding: 12px !important;
+    box-sizing: border-box;
+}
+
+@media (max-width: 575.98px) {
+    body.ps-theme-warm.debts-page .ps-content {
+        padding: 8px !important;
+    }
+
+    body.ps-theme-warm.debts-page .product-list-page.debt-premium-page {
+        padding: 8px !important;
+        border-radius: 10px !important;
+    }
+}
+
+body.ps-theme-warm.debts-page .debt-premium-shell,
+body.ps-theme-warm.debts-page .product-list-page.debt-premium-page {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+body.ps-theme-warm .pos-themed-overlay {
+    background: rgba(60, 48, 32, 0.45) !important;
+}
+
+body.ps-theme-warm .pos-themed-dialog__title {
+    font-weight: 500 !important;
+    font-size: 1.1rem !important;
+}
+
+body.ps-theme-warm .pos-themed-label {
+    font-size: 14px !important;
+}

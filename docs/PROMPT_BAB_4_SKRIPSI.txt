@@ -1,0 +1,275 @@
+================================================================================
+PROMPT UNIVERSAL — BAB 4 PERANCANGAN, IMPLEMENTASI, PENGUJIAN
+Proyek: Sistem Inventaris & Penjualan (POS) Pupuk / Pertanian (Laravel + React)
+Gunakan blok di bawah INI UTUH untuk Claude, ChatGPT, atau Gemini (bandingkan hasil).
+Bahasa keluaran: Bahasa Indonesia baku (karya ilmiah / laporan tugas akhir).
+================================================================================
+
+ANDA ADALAH penulis akademik dan analis sistem. Tugas Anda menulis narasi laporan
+Bab 4 sesuai struktur subbab yang ditentukan, dengan isi yang SELARAS dengan
+proyek teknis berikut. Dilarang mengarang modul, tabel, atau endpoint yang tidak
+ada dalam konteks proyek. Jika ada celah antara migrasi dan model aplikasi,
+jelaskan secara eksplisit sebagai catatan implementasi / rekomendasi verifikasi.
+
+--------------------------------------------------------------------------------
+A. IDENTITAS PROYEK (STACK & ARSITEKTUR)
+--------------------------------------------------------------------------------
+- Nama domain aplikasi: inventaris dan penjualan barang (fokus pupuk; kategori
+  juga mendukung alat pertanian, herbisida, pestisida setelah konsolidasi data).
+- Backend: Laravel 12, PHP ^8.2.
+- Otentikasi: sesi web (login Blade) + API Laravel Sanctum (`personal_access_tokens`);
+  middleware alias `role` memeriksa peran pengguna.
+- Peran (enum pada users.role): admin, kasir, manager (default migrasi: kasir).
+- Frontend: Vite, React 19, Axios; styling Tailwind CSS 4 + Bootstrap 5;
+  visualisasi: Chart.js, react-chartjs-2.
+- Laporan unduhan: barryvdh/laravel-dompdf (PDF), maatwebsite/excel (Excel).
+- Basis data: MySQL/MariaDB (umum dengan Laravel); skema dari migration Laravel.
+
+Arsitektur umum (jelaskan dalam teks): klien (browser, SPA React pada halaman
+tertentu) ↔ HTTP (web routes + API routes) ↔ Controller / Service ↔ Eloquent
+Models ↔ DBMS.
+
+--------------------------------------------------------------------------------
+B. AKSES FITUR MENURUT PERAN (RINGKASAN routes/web.php)
+--------------------------------------------------------------------------------
+- Login / logout: publik login; logout auth.
+- Registrasi pengguna: hanya admin (`/register`).
+- Redirect `/` setelah login: ke `/sales` (kasir).
+- Dashboard ringkasan `/dashboard`: admin, kasir, manager.
+- Produk CRUD `/products*`: hanya admin.
+- Supplier `/suppliers`: admin (GET index, POST store).
+- Penjualan POS `/sales`: admin, kasir.
+- Hutang `/debts*`, cicilan terkait: admin, kasir.
+- Laporan `/reports`, `/stock-reports`: admin, manager.
+
+--------------------------------------------------------------------------------
+C. API & MODUL (RINGKASAN routes/api.php — tanpa mengarang path lain)
+--------------------------------------------------------------------------------
+Prefix umum API: `/api/...` (sesuai konfigurasi Laravel).
+
+Dashboard (middleware web + auth):
+  GET dashboard/summary, sales-chart, sales-comparison, sales-by-period,
+  sales-analysis, month-comparison, debt-management, top-products,
+  category-chart, low-stock-alerts, recent-sales.
+
+POS (middleware web + auth, prefix pos):
+  GET pos/search-products, pos/product-by-barcode
+  POST pos/sales
+  GET pos/sale-history, pos/sale-detail/{id}
+  DELETE pos/cancel-sale/{id}
+
+Laporan (prefix reports — unduhan & preview; edit penjualan untuk UI laporan):
+  GET reports/download/sales/pdf|excel, stock/pdf|excel, product/excel
+  GET reports/preview/sales, preview/stock
+  GET reports/sales-report, stock, stock-movement, supplier, category,
+      top-selling-products, sales, sales-analytics, sales/{id}
+  PUT reports/sales/{id}, DELETE reports/sales/{id}
+
+Stok (prefix stock):
+  GET stock/history, low-stock-alerts, prediction
+  POST stock/adjust, stock/bulk-adjust
+
+Produk REST: apiResource products (ProductController API).
+
+Kategori untuk filter: GET /categories (JSON dengan sort_order, withCount products).
+
+Sanctum: GET /user dengan auth:sanctum.
+
+--------------------------------------------------------------------------------
+D. RINGKASAN SKEMA BASIS DATA — HASIL PEMBACAAN FILE MIGRASI
+    (folder: database/migrations; urutan eksekusi mengikuti timestamp file)
+--------------------------------------------------------------------------------
+Catatan: migrasi `2025_12_21_153039_add_delivery_method_and_debt_fields_to_sales_table`
+berisi placeholder (tidak menambah kolom). Model `App\Models\Sale` memakai field
+delivery_method, delivery_address, delivery_phone, debt_amount, debt_status.
+Untuk Bab 4.4.1 / struktur tabel final: minta penulis memverifikasi terhadap
+database aktual atau `php artisan db:show` / `SHOW COLUMNS FROM sales` — jika
+kolom tersebut ada di DB produksi, dokumentasikan; jika tidak, jangan klaim
+sebagai hasil migrasi saja.
+
+D.1 users (0001_01_01_000000 + 2025_06_27_181622)
+    - id, name, email (unique), email_verified_at, password,
+      role ENUM('admin','kasir','manager') DEFAULT 'kasir',
+      remember_token, timestamps.
+
+D.2 password_reset_tokens, sessions — standar Laravel.
+
+D.3 categories (2025_06_27_181440 + 2026_05_08_120000)
+    - id, name, description nullable, sort_order unsignedSmallInteger DEFAULT 100,
+      timestamps.
+    - Migrasi konsolidasi (2026_05_08_140000): empat kategori kanonik —
+      Pupuk; Alat-alat pertanian; Herbisida; Pestisida — dengan deskripsi dan
+      sort_order; produk dipetakan ulang; kategori lain dihapus.
+
+D.4 suppliers (2025_06_27_181443 + 2026_05_08_140000)
+    - id, name, contact_person (nullable setelah konsolidasi),
+      phone nullable, email nullable, address nullable, timestamps.
+
+D.5 products (2025_06_27_181449 + alter harga + konsolidasi supplier)
+    - id, name, brand,
+      type ENUM('organik','kimia'),
+      unit ENUM('kg','liter','karung'),
+      price DECIMAL(15,2),
+      stock_quantity INT DEFAULT 0, minimum_stock INT DEFAULT 0,
+      description nullable, image nullable, barcode nullable UNIQUE,
+      supplier_id BIGINT UNSIGNED NULLABLE, FK ke suppliers NULL ON DELETE,
+      category_id FK ke categories ON DELETE CASCADE,
+      timestamps.
+
+D.6 sales (2025_06_27_181546 + beberapa alter)
+    - id, invoice_number UNIQUE, customer_name, customer_phone nullable,
+      sale_date DATE,
+      total_amount DECIMAL(15,2),
+      discount DECIMAL(10,2) DEFAULT 0,
+      payment_amount DECIMAL(15,2) DEFAULT 0,
+      change_amount DECIMAL(15,2) DEFAULT 0,
+      payment_method ENUM('cash','transfer','card','credit') NOT NULL,
+      status ENUM('pending','completed','cancelled','deleted') DEFAULT 'completed',
+      user_id FK users ON DELETE CASCADE,
+      deleted_at (soft deletes),
+      timestamps.
+
+D.7 sale_items (2025_06_27_181558 + alter presisi)
+    - id, sale_id FK sales CASCADE, product_id FK products CASCADE,
+      quantity INT, unit_price DECIMAL(15,2), subtotal DECIMAL(15,2),
+      timestamps.
+
+D.8 stock_movements (2025_06_27_181609)
+    - id, product_id FK products CASCADE,
+      type ENUM('in','out'), quantity INT,
+      reference_type STRING (mis. 'sale','purchase','adjustment'),
+      reference_id UNSIGNED BIGINT, notes nullable,
+      user_id FK users CASCADE, timestamps.
+
+D.9 debts (2025_12_21_153050)
+    - id, sale_id FK sales CASCADE,
+      customer_name, customer_phone nullable,
+      total_amount DECIMAL(15,2), paid_amount DECIMAL(15,2) DEFAULT 0,
+      remaining_amount DECIMAL(15,2), due_date nullable,
+      status ENUM('unpaid','partial','paid') DEFAULT 'unpaid',
+      notes nullable, user_id FK users CASCADE, timestamps.
+
+D.10 debt_payments (2025_12_21_153102)
+    - id, debt_id FK debts CASCADE,
+      amount DECIMAL(15,2), payment_date DATE,
+      payment_method ENUM('cash','transfer','card') DEFAULT 'cash',
+      notes nullable, user_id FK users CASCADE, timestamps.
+
+D.11 installment_plans (2025_12_21_153951)
+    - id, debt_id FK debts CASCADE,
+      total_amount DECIMAL(15,2), installment_count INT,
+      installment_amount DECIMAL(15,2),
+      frequency ENUM('daily','weekly','monthly') DEFAULT 'monthly',
+      start_date DATE, end_date DATE nullable,
+      paid_amount DECIMAL(15,2) DEFAULT 0, paid_count INT DEFAULT 0,
+      status ENUM('active','completed','cancelled') DEFAULT 'active',
+      notes nullable, user_id FK users CASCADE, timestamps.
+
+D.12 installment_payments (2025_12_21_153954)
+    - id, installment_plan_id FK installment_plans CASCADE,
+      debt_id FK debts CASCADE,
+      installment_number INT, amount DECIMAL(15,2),
+      due_date DATE, payment_date DATE nullable,
+      status ENUM('pending','paid','overdue','skipped') DEFAULT 'pending',
+      payment_method ENUM('cash','transfer','card') NULLABLE,
+      notes nullable, user_id FK users NULLABLE SET NULL,
+      timestamps.
+
+D.13 personal_access_tokens (2025_06_27_182549) — Sanctum.
+
+D.14 cache, jobs — tabel pendukung Laravel (sebut singkat jika relevan).
+
+--------------------------------------------------------------------------------
+E. LAPORAN (SELARAS REPORT_SYSTEM_README / ReportController)
+--------------------------------------------------------------------------------
+- Jenis laporan: penjualan, stok, produk (Excel).
+- Format: PDF (penjualan, stok), Excel (penjualan, stok, produk).
+- Periode query: daily, weekly, monthly dengan parameter date (Y-m-d atau Y-m).
+
+--------------------------------------------------------------------------------
+F. STRUKTUR BAB YANG WAJIB DITUHI (HEADING PERSIS)
+--------------------------------------------------------------------------------
+
+4.3 Perancangan
+
+4.3.1 Perancangan Proses Sistem
+  (1) Use case diagram — deskripsi naratif + daftar aktor dan use case per
+      modul (autentikasi, master produk & supplier, POS, hutang & cicilan,
+      stok, laporan & unduhan, dashboard). Jelaskan relasi include/extend
+      bila dipakai.
+  (2) Activity diagram — minimal TIGA alur terpisah dalam teks langkah
+      terstruktur (mulai, aktivitas, decision, akhir):
+      - Penjualan/POS termasuk validasi stok dan pembatalan transaksi.
+      - Pencatatan mutasi stok / penyesuaian stok.
+      - Pembuatan atau pratinjau / unduhan laporan (PDF/Excel) dengan filter periode.
+
+4.3.2 Perancangan Struktur Data
+  (1) Perancangan konseptual — entitas & atribut domain (bahasa bisnis).
+  (2) Entity Relationship Diagram — uraian teks entitas dan kardinalitas.
+  (3) Relasi antar tabel — tabel ringkas: Tabel | Relasi | Tabel terkait | Keterangan.
+  (4) Struktur tabel — untuk setiap tabel bisnis utama pada bagian D di atas:
+      nama kolom, tipe logis, PK/FK, keterangan singkat. Sertakan catatan
+      kolom Sale yang ada di model namun tidak tercantum di migrasi 153039.
+
+4.3.3 Perancangan Antarmuka Pengguna
+  — Inventaris layar sesuai rute: login, dashboard, produk, supplier, penjualan,
+    hutang, laporan, laporan stok. Untuk masing-masing: tujuan layar, peran
+    yang berhak, komponen UI utama (form, tabel, grafik, unduhan).
+
+4.4 Implementasi
+
+4.4.1 Implementasi Basis Data pada DBMS
+  — DBMS target, pembuatan skema lewat `php artisan migrate`, konsistensi
+    dengan 4.3.2, indeks/unik (invoice_number, barcode, email). Prosedur
+    verifikasi skema (opsional): migrasi status, dump skema.
+
+4.4.2 Implementasi Kode Program
+  — Lapisan: routes, middleware peran, controller (web + Api: Pos, Report,
+    Stock, Dashboard, Product, Debt, Installment, Auth), model Eloquent,
+    view Blade + aset Vite/React. Jelaskan SATU alur request–response untuk
+    POS dan SATU untuk unduhan laporan (tanpa tempel kode ratusan baris;
+    boleh cuplikan pseudokode atau nama kelas/metode).
+
+4.5 Pengujian
+
+4.5.1 Pengujian Metode HCD (Human-Centered Design)
+  — Tahapan HCD dan hubungannya dengan kebutuhan pengguna, perancangan UI,
+    dan iterasi (empati, definisi, ide, prototipe, uji).
+
+4.5.2 Pengujian Fungsionalitas (Black Box Testing)
+  — Tabel minimal 18 kasus uji dengan kolom:
+    ID, Modul, Deskripsi, Langkah uji, Data uji, Hasil diharapkan, Hasil aktual (kosong).
+    Cakupan wajib: login gagal/benar, akses ditolak per peran, CRUD produk,
+    supplier, transaksi POS (termasuk kredit jika relevan), hutang &
+    pembayaran, cicilan, pembatalan penjualan, laporan unduh PDF/Excel,
+    endpoint dashboard ringkasan, penyesuaian stok.
+
+4.5.3 Pengujian System Usability Scale (SUS)
+  — Jelaskan 10 pertanyaan SUS (versi Bahasa Indonesia netral), skala 1–5,
+    rumus skor SUS 0–100, interpretasi rentang skor menurut literatur umum.
+  — Contoh format lembar respon untuk responden.
+
+--------------------------------------------------------------------------------
+G. GAYA & KUALITAS
+--------------------------------------------------------------------------------
+- Bahasa Indonesia formal, paragraf naratif; tabel untuk data terstruktur.
+- Istilah konsisten: inventaris, stok, penjualan, hutang, cicilan, laporan.
+- Panjang perkiraan setara 20–40 halaman dokumen word setelah diketik
+  (boleh lebih jika diperlukan untuk kelengkapan tabel pengujian).
+- Cantumkan daftar pustaka minimal 3–5 untuk HCD, black box, dan SUS (format APA
+  atau format kampus — sebutkan satu dan patuhi).
+
+--------------------------------------------------------------------------------
+H. INSTRUKSI KHUSUS UNTUK PERBANDINGAN MODEL AI (Claude / ChatGPT / Gemini)
+--------------------------------------------------------------------------------
+- Utamakan konsistensi internal (use case ↔ aktivitas ↔ tabel ↔ modul ↔ uji).
+- Jangan menyalin isi file migration panjang ke laporan; cukup ringkasan
+  seperti bagian D dan rujukan "berdasarkan migration Laravel proyek".
+- Jika ada ketidakjelasan antara kode model dan migrasi, dokumentasikan sebagai
+  "ketidaksamaan skema–kode" dan rekomendasikan sinkronisasi migrasi.
+- Akhiri dengan daftar singkat "Checklist verifikasi penulis" (5–10 poin)
+  sebelum bimbingan.
+
+================================================================================
+AKHIR PROMPT — salin dari baris "ANDA ADALAH" hingga "sebelum bimbingan."
+================================================================================

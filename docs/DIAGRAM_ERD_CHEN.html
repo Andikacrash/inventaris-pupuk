@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERD Chen — Sistem Inventaris & POS Pupuk</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+        }
+        header {
+            background: #1a5c42;
+            color: #fff;
+            padding: 1rem 1.5rem;
+            text-align: center;
+        }
+        header h1 { font-size: 1.25rem; font-weight: 700; }
+        header p { font-size: 0.9rem; opacity: 0.9; margin-top: 0.25rem; }
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem 2rem;
+            justify-content: center;
+            padding: 0.75rem 1rem;
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+            font-size: 0.85rem;
+        }
+        .legend-item { display: flex; align-items: center; gap: 0.5rem; }
+        .legend-entity {
+            width: 28px; height: 18px;
+            background: #7cb342;
+            border: 2px solid #558b2f;
+        }
+        .legend-rel {
+            width: 18px; height: 18px;
+            background: #42a5f5;
+            border: 2px solid #1976d2;
+            transform: rotate(45deg);
+        }
+        .legend-attr {
+            width: 36px; height: 20px;
+            background: #f48fb1;
+            border: 2px solid #c2185b;
+            border-radius: 50%;
+        }
+        .legend-pk {
+            width: 36px; height: 20px;
+            background: #f48fb1;
+            border: 3px solid #b71c1c;
+            border-radius: 50%;
+            text-decoration: underline;
+            font-size: 10px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .canvas-wrap {
+            overflow: auto;
+            padding: 1rem;
+            background: #fafafa;
+        }
+        svg {
+            display: block;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        .entity-box {
+            fill: #aed581;
+            stroke: #558b2f;
+            stroke-width: 2;
+        }
+        .entity-label {
+            fill: #1b5e20;
+            font-weight: 700;
+            font-size: 13px;
+            text-anchor: middle;
+        }
+        .attr-ellipse {
+            fill: #f8bbd0;
+            stroke: #c2185b;
+            stroke-width: 1.5;
+        }
+        .attr-ellipse.pk {
+            stroke: #b71c1c;
+            stroke-width: 2.5;
+        }
+        .attr-text {
+            fill: #333;
+            font-size: 11px;
+            text-anchor: middle;
+            dominant-baseline: middle;
+        }
+        .attr-text.pk { text-decoration: underline; font-weight: 600; }
+        .rel-diamond {
+            fill: #64b5f6;
+            stroke: #1565c0;
+            stroke-width: 2;
+        }
+        .rel-label {
+            fill: #0d47a1;
+            font-size: 11px;
+            font-weight: 600;
+            text-anchor: middle;
+            dominant-baseline: middle;
+        }
+        .card-label {
+            fill: #333;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .link-line {
+            stroke: #555;
+            stroke-width: 1.5;
+            fill: none;
+        }
+        .attr-link { stroke: #888; stroke-width: 1; fill: none; }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        @media print {
+            header, .legend, footer { display: none; }
+            .canvas-wrap { overflow: visible; padding: 0; }
+            svg { box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Entity Relationship Diagram (Notasi Chen)</h1>
+        <p>Sistem Inventaris dan Point of Sale (POS) Pupuk</p>
+    </header>
+
+    <div class="legend">
+        <div class="legend-item"><span class="legend-entity"></span> Entitas</div>
+        <div class="legend-item"><span class="legend-rel"></span> Relasi</div>
+        <div class="legend-item"><span class="legend-attr"></span> Atribut</div>
+        <div class="legend-item"><span class="legend-pk">PK</span> Primary Key (garis bawah)</div>
+    </div>
+
+    <div class="canvas-wrap">
+        <svg width="2200" height="1680" viewBox="0 0 2200 1680" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                    <path d="M0,0 L6,3 L0,6 Z" fill="#555"/>
+                </marker>
+            </defs>
+
+            <!-- ==================== MODUL MASTER & INVENTARIS ==================== -->
+
+            <!-- CATEGORIES -->
+            <g id="entity-categories" transform="translate(520, 40)">
+                <rect class="entity-box" x="-55" y="-18" width="110" height="36" rx="2"/>
+                <text class="entity-label" y="5">Categories</text>
+            </g>
+            <ellipse class="attr-ellipse pk" cx="520" cy="115" rx="52" ry="18"/>
+            <text class="attr-text pk" x="520" y="115">id</text>
+            <line class="attr-link" x1="520" y1="58" x2="520" y2="97"/>
+            <ellipse class="attr-ellipse" cx="400" cy="95" rx="42" ry="16"/>
+            <text class="attr-text" x="400" y="95">name</text>
+            <line class="attr-link" x1="505" y1="52" x2="430" y2="88"/>
+            <ellipse class="attr-ellipse" cx="640" cy="95" rx="58" ry="16"/>
+            <text class="attr-text" x="640" y="95">description</text>
+            <line class="attr-link" x1="535" y1="52" x2="610" y2="88"/>
+            <ellipse class="attr-ellipse" cx="640" cy="145" rx="52" ry="16"/>
+            <text class="attr-text" x="640" y="145">sort_order</text>
+            <line class="attr-link" x1="535" y1="58" x2="620" y2="132"/>
+
+            <!-- SUPPLIERS -->
+            <g transform="translate(1480, 40)">
+                <rect class="entity-box" x="-55" y="-18" width="110" height="36" rx="2"/>
+                <text class="entity-label" y="5">Suppliers</text>
+            </g>
+            <ellipse class="attr-ellipse pk" cx="1480" cy="115" rx="52" ry="18"/>
+            <text class="attr-text pk" x="1480" y="115">id</text>
+            <line class="attr-link" x1="1480" y1="58" x2="1480" y2="97"/>
+            <ellipse class="attr-ellipse" cx="1360" cy="95" rx="42" ry="16"/>
+            <text class="attr-text" x="1360" y="95">name</text>
+            <line class="attr-link" x1="1465" y1="52" x2="1390" y2="88"/>
+            <ellipse class="attr-ellipse" cx="1600" cy="95" rx="48" ry="16"/>
+            <text class="attr-text" x="1600" y="95">phone</text>
+            <line class="attr-link" x1="1495" y1="52" x2="1570" y2="88"/>
+
+            <!-- PRODUCTS -->
+            <g transform="translate(1000, 320)">
+                <rect class="entity-box" x="-50" y="-18" width="100" height="36" rx="2"/>
+                <text class="entity-label" y="5">Products</text>
+            </g>
+            <ellipse class="attr-ellipse pk" cx="1000" cy="395" rx="52" ry="18"/>
+            <text class="attr-text pk" x="1000" y="395">id</text>
+            <line class="attr-link" x1="1000" y1="338" x2="1000" y2="377"/>
+            <ellipse class="attr-ellipse" cx="880" cy="375" rx="42" ry="16"/>
+            <text class="attr-text" x="880" y="375">name</text>
+            <line class="attr-link" x1="985" y1="332" x2="910" y2="368"/>
+            <ellipse class="attr-ellipse" cx="1120" cy="375" rx="42" ry="16"/>
+            <text class="attr-text" x="1120" y="375">brand</text>
+            <line class="attr-link" x1="1015" y1="332" x2="1090" y2="368"/>
+            <ellipse class="attr-ellipse" cx="1120" cy="425" rx="42" ry="16"/>
+            <text class="attr-text" x="1120" y="425">price</text>
+            <line class="attr-link" x1="1015" y1="338" x2="1090" y2="412"/>
+            <ellipse class="attr-ellipse" cx="880" cy="425" rx="58" ry="16"/>
+            <text class="attr-text" x="880" y="425">stock_quantity</text>
+            <line class="attr-link" x1="985" y1="338" x2="910" y2="412"/>
+            <ellipse class="attr-ellipse" cx="1000" cy="455" rx="58" ry="16"/>
+            <text class="attr-text" x="1000" y="455">minimum_stock</text>
+            <line class="attr-link" x1="1000" y1="338" x2="1000" y2="439"/>
+
+            <!-- Rel: Categories Memiliki Products -->
+            <polygon class="rel-diamond" points="760,220 800,260 760,300 720,260"/>
+            <text class="rel-label" x="760" y="262">Memiliki</text>
+            <line class="link-line" x1="560" y1="160" x2="720" y2="240"/>
+            <text class="card-label" x="620" y="195">1</text>
+            <line class="link-line" x1="800" y1="280" x2="950" y2="320"/>
+            <text class="card-label" x="890" y="295">N</text>
+
+            <!-- Rel: Suppliers Menyediakan Products -->
+            <polygon class="rel-diamond" points="1240,220 1280,260 1240,300 1200,260"/>
+            <text class="rel-label" x="1240" y="262">Menyediakan</text>
+            <line class="link-line" x1="1440" y1="160" x2="1280" y2="240"/>
+            <text class="card-label" x="1380" y="195">1</text>
+            <line class="link-line" x1="1200" y1="280" x2="1050" y2="320"/>
+            <text class="card-label" x="1110" y="295">N</text>
+
+            <!-- STOCK_MOVEMENTS -->
+            <g transform="translate(1380, 520)">
+                <rect class="entity-box" x="-72" y="-18" width="144" height="36" rx="2"/>
+                <text class="entity-label" y="5">Stock_Movements</text>
+            </g>
+            <ellipse class="attr-ellipse pk" cx="1380" cy="595" rx="52" ry="18"/>
+            <text class="attr-text pk" x="1380" y="595">id</text>
+            <line class="attr-link" x1="1380" y1="538" x2="1380" y2="577"/>
+            <ellipse class="attr-ellipse" cx="1260" cy="575" rx="38" ry="16"/>
+            <text class="attr-text" x="1260" y="575">type</text>
+            <line class="attr-link" x1="1365" y1="532" x2="1290" y2="568"/>
+            <ellipse class="attr-ellipse" cx="1500" cy="575" rx="48" ry="16"/>
+            <text class="attr-text" x="1500" y="575">quantity</text>
+            <line class="attr-link" x1="1395" y1="532" x2="1470" y2="568"/>
+
+            <!-- Rel: Products Memiliki Stock_Movements -->
+            <polygon class="rel-diamond" points="1200,420 1240,460 1200,500 1160,460"/>
+            <text class="rel-label" x="1200" y="458">Memiliki</text>
+            <line class="link-line" x1="1050" y1="360" x2="1160" y2="440"/>
+            <text class="card-label" x="1085" y="395">1</text>
+            <line class="link-line" x1="1240" y1="480" x2="1340" y2="518"/>
+            <text class="card-label" x="1300" y="495">N</text>
+
+            <!-- ==================== MODUL PENJUALAN ==================== -->
+
+            <!-- USERS -->
+            <g transform="translate(180, 520)">
+                <rect class="entity-box" x="-42" y="-18" width="84" height="36" rx="2"/>
+                <text class="entity-label" y="5">Users</text>
+            </g>
+            <ellipse class="attr-ellipse pk" cx="180" cy="595" rx="52" ry="18"/>
+            <text class="attr-text pk" x="180" y="595">id</text>
+            <line class="attr-link" x1="180" y1="538" x2="180" y2="577"/>
+            <ellipse class="attr-ellipse" cx="60" cy="575" rx="42" ry="16"/>
+            <text class="attr-text" x="60" y="575">name</text>
+            <line class="attr-link" x1="165" y1="532" x2="90" y2="568"/>
+            <ellipse class="attr-ellipse" cx="60" cy="625" rx="42" ry="16"/>
+            <text class="attr-text" x="60" y="625">email</text>
+            <line class="attr-link" x1="165" y1="538" x2="90" y2="612"/>
+            <ellipse class="attr-ellipse" cx="300" cy="600" rx="38" ry="16"/>
+            <text class="attr-text" x="300" y="600">role</text>
+            <line class="attr-link" x1="195" y1="535" x2="275" y2="592"/>
+
+            <!-- SALES -->
+            <g transform="translate(480, 720)">
+                <rect class="entity-box" x="-42" y="-18" width="84" height="36" rx="2"/>
+                <text class="entity-label" y="5">Sales</text>
+            </g>
+            <ellipse class="attr-ellipse pk" cx="480" cy="795" rx="52" ry="18"/>
+            <text class="attr-text pk" x="480" y="795">id</text>
+            <line class="attr-link" x1="480" y1="738" x2="480" y2="777"/>
+            <ellipse class="attr-ellipse" cx="360" cy="775" rx="68" ry="16"/>
+            <text class="attr-text" x="360" y="775">invoice_number</text>
+            <line class="attr-link" x1="465" y1="732" x2="390" y2="768"/>
+            <ellipse class="attr-ellipse" cx="360" cy="825" rx="62" ry="16"/>
+            <text class="attr-text" x="360" y="825">customer_name</text>
+            <line class="attr-link" x1="465" y1="738" x2="390" y2="812"/>
+            <ellipse class="attr-ellipse" cx="600" cy="775" rx="52" ry="16"/>
+            <text class="attr-text" x="600" y="775">sale_date</text>
+            <line class="attr-link" x1="495" y1="732" x2="570" y2="768"/>
+            <ellipse class="attr-ellipse" cx="600" cy="825" rx="58" ry="16"/>
+            <text class="attr-text" x="600" y="825">total_amount</text>
+            <line class="attr-link" x1="495" y1="738" x2="570" y2="812"/>
+
+            <!-- SALE_ITEMS -->
+            <g transform="translate(820, 720)">
+                <rect class="entity-box" x="-55" y="-18" width="110" height="36" rx="2"/>
+                <text class="entity-label" y="5">Sale_Items</text>
+            </g>
+            <ellipse class="attr-ellipse pk" cx="820" cy="795" rx="52" ry="18"/>
+            <text class="attr-text pk" x="820" y="795">id</text>
+            <line class="attr-link" x1="820" y1="738" x2="820" y2="777"/>
+            <ellipse class="attr-ellipse" cx="700" cy="775" rx="48" ry="16"/>
+            <text class="attr-text" x="700" y="775">quantity</text>
+            <line class="attr-link" x1="805" y1="732" x2="730" y2="768"/>
+            <ellipse class="attr-ellipse" cx="940" cy="775" rx="52" ry="16"/>
+            <text class="attr-text" x="940" y="775">unit_price</text>
+            <line class="attr-link" x1="835" y1="732" x2="910" y2="768"/>
+            <ellipse class="attr-ellipse" cx="820" cy="845" rx="48" ry="16"/>
+            <text class="attr-text" x="820" y="845">subtotal</text>
+            <line class="attr-link" x1="820" y1="738" x2="820" y2="829"/>
+
+            <!-- Rel: Users Melakukan Sales -->
+            <polygon class="rel-diamond" points="300,620 340,660 300,700 260,660"/>
+            <text class="rel-label" x="300" y="662">Melakukan</text>
+            <line class="link-line" x1="210" y1="540" x2="260" y2="640"/>
+            <text class="card-label" x="225" y="585">1</text>
+            <line class="link-line" x1="340" y1="680" x2="440" y2="718"/>
+            <text class="card-label" x="385" y="695">N</text>
+
+            <!-- Rel: Sales Memiliki Sale_Items -->
+            <polygon class="rel-diamond" points="640,720 680,760 640,800 600,760"/>
+            <text class="rel-label" x="640" y="762">Memiliki</text>
+            <line class="link-line" x1="522" y1="738" x2="600" y2="752"/>
+            <text class="card-label" x="555" y="738">1</text>
+            <line class="link-line" x1="680" y1="768" x2="765" y2="720"/>
+            <text class="card-label" x="730" y="738">N</text>
+
+            <!-- Rel: Sale_Items ke Products (Mencakup) -->
+            <polygon class="rel-diamond" points="920,580 960,620 920,660 880,620"/>
+            <text class="rel-label" x="920" y="622">Mencakup</text>
+            <line class="link-line" x1="880" y1="640" x2="960" y2="400"/>
+            <text class="card-label" x="895" y="515">N</text>
+            <line class="link-line" x1="960" y1="600" x2="1000" y2="360"/>
+            <text class="card-label" x="990" y="475">1</text>
+
+            <!-- Rel: Users Mencatat Stock_Movements -->
+            <polygon class="rel-diamond" points="300,480 340,520 300,560 260,520"/>
+            <text class="rel-label" x="300" y="522">Mencatat</text>
+            <line class="link-line" x1="220" y1="520" x2="260" y2="518"/>
+            <text class="card-label" x="235" y="510">1</text>
+            <line class="link-line" x1="340" y1="520" x2="1320" y2="520"/>
+            <text class="card-label" x="820" y="508">N</text>
+
+            <!-- ==================== MODUL HUTANG ==================== -->
+
+            <!-- DEBTS -->
+            <g transform="translate(480, 1020)">
+                <rect class="entity-box" x="-42" y="-18" width="84" height="36" rx="2"/>
+                <text class="entity-label" y="5">Debts</text>
+            </g>
+            <ellipse class="attr-ellipse pk" cx="480" cy="1095" rx="52" ry="18"/>
+            <text class="attr-text pk" x="480" y="1095">id</text>
+            <line class="attr-link" x1="480" y1="1038" x2="480" y2="1077"/>
+            <ellipse class="attr-ellipse" cx="360" cy="1075" rx="62" ry="16"/>
+            <text class="attr-text" x="360" y="1075">total_amount</text>
+            <line class="attr-link" x1="465" y1="1032" x2="390" y2="1068"/>
+            <ellipse class="attr-ellipse" cx="600" cy="1075" rx="58" ry="16"/>
+            <text class="attr-text" x="600" y="1075">paid_amount</text>
+            <line class="attr-link" x1="495" y1="1032" x2="570" y2="1068"/>
+            <ellipse class="attr-ellipse" cx="600" cy="1125" rx="68" ry="16"/>
+            <text class="attr-text" x="600" y="1125">remaining_amount</text>
+            <line class="attr-link" x1="495" y1="1038" x2="570" y2="1112"/>
+            <ellipse class="attr-ellipse" cx="360" cy="1125" rx="42" ry="16"/>
+            <text class="attr-text" x="360" y="1125">status</text>
+            <line class="attr-link" x1="465" y1="1038" x2="390" y2="1112"/>
+
+            <!-- Rel: Sales Menghasilkan Debts (1:1) -->
+            <polygon class="rel-diamond" points="480,900 520,940 480,980 440,940"/>
+            <text class="rel-label" x="480" y="942">Menghasilkan</text>
+            <line class="link-line" x1="480" y1="756" x2="480" y2="900"/>
+            <text class="card-label" x="492" y="820">1</text>
+            <line class="link-line" x1="480" y1="980" x2="480" y2="1002"/>
+            <text class="card-label" x="492" y="995">1</text>
+
+            <!-- DEBT_PAYMENTS -->
+            <g transform="translate(820, 1180)">
+                <rect class="entity-box" x="-65" y="-18" width="130" height="36" rx="2"/>
+                <text class="entity-label" y="5">Debt_Payments</text>
+            </g>
+            <ellipse class="attr-ellipse pk" cx="820" cy="1255" rx="52" ry="18"/>
+            <text class="attr-text pk" x="820" y="1255">id</text>
+            <line class="attr-link" x1="820" y1="1198" x2="820" y2="1237"/>
+            <ellipse class="attr-ellipse" cx="700" cy="1235" rx="42" ry="16"/>
+            <text class="attr-text" x="700" y="1235">amount</text>
+            <line class="attr-link" x1="805" y1="1192" x2="730" y2="1228"/>
+            <ellipse class="attr-ellipse" cx="940" cy="1235" rx="58" ry="16"/>
+            <text class="attr-text" x="940" y="1235">payment_date</text>
+            <line class="attr-link" x1="835" y1="1192" x2="910" y2="1228"/>
+
+            <!-- INSTALLMENT_PLANS -->
+            <g transform="translate(180, 1180)">
+                <rect class="entity-box" x="-78" y="-18" width="156" height="36" rx="2"/>
+                <text class="entity-label" y="5">Installment_Plans</text>
+            </g>
+            <ellipse class="attr-ellipse pk" cx="180" cy="1255" rx="52" ry="18"/>
+            <text class="attr-text pk" x="180" y="1255">id</text>
+            <line class="attr-link" x1="180" y1="1198" x2="180" y2="1237"/>
+            <ellipse class="attr-ellipse" cx="60" cy="1235" rx="68" ry="16"/>
+            <text class="attr-text" x="60" y="1235">installment_count</text>
+            <line class="attr-link" x1="165" y1="1192" x2="90" y2="1228"/>
+            <ellipse class="attr-ellipse" cx="300" cy="1235" rx="72" ry="16"/>
+            <text class="attr-text" x="300" y="1235">installment_amount</text>
+            <line class="attr-link" x1="195" y1="1192" x2="270" y2="1228"/>
+
+            <!-- INSTALLMENT_PAYMENTS -->
+            <g transform="translate(520, 1420)">
+                <rect class="entity-box" x="-85" y="-18" width="170" height="36" rx="2"/>
+                <text class="entity-label" y="5">Installment_Payments</text>
+            </g>
+            <ellipse class="attr-ellipse pk" cx="520" cy="1495" rx="52" ry="18"/>
+            <text class="attr-text pk" x="520" y="1495">id</text>
+            <line class="attr-link" x1="520" y1="1438" x2="520" y2="1477"/>
+            <ellipse class="attr-ellipse" cx="400" cy="1475" rx="42" ry="16"/>
+            <text class="attr-text" x="400" y="1475">amount</text>
+            <line class="attr-link" x1="505" y1="1432" x2="430" y2="1468"/>
+            <ellipse class="attr-ellipse" cx="640" cy="1475" rx="48" ry="16"/>
+            <text class="attr-text" x="640" y="1475">due_date</text>
+            <line class="attr-link" x1="535" y1="1432" x2="610" y2="1468"/>
+            <ellipse class="attr-ellipse" cx="520" cy="1545" rx="42" ry="16"/>
+            <text class="attr-text" x="520" y="1545">status</text>
+            <line class="attr-link" x1="520" y1="1438" x2="520" y2="1529"/>
+
+            <!-- Rel: Debts Menerima Debt_Payments -->
+            <polygon class="rel-diamond" points="620,1100 660,1140 620,1180 580,1140"/>
+            <text class="rel-label" x="620" y="1142">Menerima</text>
+            <line class="link-line" x1="522" y1="1040" x2="580" y2="1120"/>
+            <text class="card-label" x="540" y="1075">1</text>
+            <line class="link-line" x1="660" y1="1160" x2="780" y2="1178"/>
+            <text class="card-label" x="720" y="1165">N</text>
+
+            <!-- Rel: Debts Memiliki Installment_Plans -->
+            <polygon class="rel-diamond" points="320,1100 360,1140 320,1180 280,1140"/>
+            <text class="rel-label" x="320" y="1142">Memiliki</text>
+            <line class="link-line" x1="440" y1="1040" x2="360" y2="1110"/>
+            <text class="card-label" x="385" y="1070">1</text>
+            <line class="link-line" x1="280" y1="1160" x2="220" y2="1178"/>
+            <text class="card-label" x="245" y="1168">N</text>
+
+            <!-- Rel: Installment_Plans Memiliki Installment_Payments -->
+            <polygon class="rel-diamond" points="340,1300 380,1340 340,1380 300,1340"/>
+            <text class="rel-label" x="340" y="1342">Memiliki</text>
+            <line class="link-line" x1="240" y1="1210" x2="300" y2="1310"/>
+            <text class="card-label" x="255" y="1255">1</text>
+            <line class="link-line" x1="380" y1="1360" x2="470" y2="1418"/>
+            <text class="card-label" x="420" y="1390">N</text>
+
+            <!-- Rel: Users Mengelola Debts -->
+            <polygon class="rel-diamond" points="280,820 320,860 280,900 240,860"/>
+            <text class="rel-label" x="280" y="862">Mengelola</text>
+            <line class="link-line" x1="200" y1="560" x2="240" y2="840"/>
+            <text class="card-label" x="205" y="700">1</text>
+            <line class="link-line" x1="320" y1="880" x2="440" y2="1010"/>
+            <text class="card-label" x="370" y="950">N</text>
+
+            <!-- Judul modul -->
+            <text x="1000" y="30" text-anchor="middle" font-size="14" font-weight="700" fill="#1a5c42">ERD — Notasi Chen (Level Konseptual)</text>
+            <rect x="40" y="55" width="200" height="28" fill="#e8f5e9" stroke="#7cb342" rx="4"/>
+            <text x="140" y="74" text-anchor="middle" font-size="11" fill="#33691e">Modul Master &amp; Inventaris</text>
+            <rect x="40" y="680" width="200" height="28" fill="#e3f2fd" stroke="#42a5f5" rx="4"/>
+            <text x="140" y="699" text-anchor="middle" font-size="11" fill="#0d47a1">Modul Penjualan (POS)</text>
+            <rect x="40" y="980" width="200" height="28" fill="#fff3e0" stroke="#ff9800" rx="4"/>
+            <text x="140" y="999" text-anchor="middle" font-size="11" fill="#e65100">Modul Hutang / Piutang</text>
+        </svg>
+    </div>
+
+    <footer>
+        Buka file ini di browser → Ctrl+P (Print) → Simpan sebagai PDF untuk lampiran skripsi.<br>
+        File: docs/DIAGRAM_ERD_CHEN.html
+    </footer>
+</body>
+</html>
+
