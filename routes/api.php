@@ -91,8 +91,8 @@ Route::prefix('stock')->group(function () {
     Route::post('/bulk-adjust', [StockController::class, 'bulkStockAdjustment']);
 });
 
-// Product routes - Admin only
-Route::apiResource('products', ProductController::class);
+// Product routes - Admin only (nama api.products.* agar tidak bentrok dengan web products.*)
+Route::apiResource('products', ProductController::class)->names('api.products');
 
 // Categories route untuk filter laporan
 Route::get('/categories', function () {

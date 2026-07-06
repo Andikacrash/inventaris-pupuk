@@ -1525,9 +1525,10 @@
         font-size: 15px;
     }
 
-    /* UI polish pass (global) */
+    /* UI polish pass (global) — tanpa ss01 agar angka 0 polos (bukan slashed zero) */
     .ps-content {
-        font-feature-settings: "cv11", "ss01";
+        font-feature-settings: "cv11";
+        font-variant-numeric: lining-nums;
     }
 
     .ps-content h1,

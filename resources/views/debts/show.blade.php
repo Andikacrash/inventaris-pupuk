@@ -124,8 +124,9 @@
         }
 
         .debt-detail-chip--invoice {
-            font-family: var(--font-sans, system-ui);
-            font-variant-numeric: tabular-nums;
+            font-family: var(--wn-font, 'Segoe UI', system-ui, sans-serif);
+            font-variant-numeric: lining-nums;
+            font-feature-settings: normal;
         }
 
         .debt-detail-chip--due-soon {
@@ -155,7 +156,8 @@
             font-size: 1.5rem;
             font-weight: 700;
             color: #b91c1c !important;
-            font-variant-numeric: tabular-nums;
+            font-variant-numeric: lining-nums;
+            font-feature-settings: normal;
         }
 
         .debt-detail-hero-side .sub {
@@ -245,7 +247,8 @@
 
         .debt-detail-table .num {
             text-align: right;
-            font-variant-numeric: tabular-nums;
+            font-variant-numeric: lining-nums;
+            font-feature-settings: normal;
         }
 
         .debt-detail-stats {
@@ -285,7 +288,8 @@
         .debt-detail-stat .v {
             font-size: 1.05rem;
             font-weight: 600;
-            font-variant-numeric: tabular-nums;
+            font-variant-numeric: lining-nums;
+            font-feature-settings: normal;
             color: var(--dd-text) !important;
         }
 
@@ -347,7 +351,8 @@
             font-size: 1.35rem;
             font-weight: 700;
             color: #b45309 !important;
-            font-variant-numeric: tabular-nums;
+            font-variant-numeric: lining-nums;
+            font-feature-settings: normal;
         }
 
         .debt-detail-form-label {
@@ -755,9 +760,11 @@
                                 <label class="debt-detail-form-label" for="payment-amount">Jumlah pembayaran</label>
                                 <div class="debt-detail-input-group">
                                     <span>Rp</span>
-                                    <input type="number" name="amount" id="payment-amount" class="debt-detail-input"
-                                        step="0.01" min="0.01" max="{{ $debt->remaining_amount }}"
-                                        value="{{ $debt->remaining_amount }}" required>
+                                    <input type="text" name="amount" id="payment-amount" class="debt-detail-input"
+                                        data-amount-input
+                                        data-max-amount="{{ (int) round($debt->remaining_amount) }}"
+                                        inputmode="numeric" autocomplete="off"
+                                        value="{{ number_format($debt->remaining_amount, 0, ',', '.') }}" required>
                                 </div>
                                 <div class="debt-detail-hint">Tidak boleh melebihi sisa hutang.</div>
                             </div>
@@ -812,16 +819,14 @@
 @endsection
 
 @push('scripts')
+    <script src="{{ url('js/amount-input-format.js') }}?v={{ time() }}"></script>
     <script>
         function setPaymentAmount(amount) {
-            const input = document.getElementById('payment-amount');
-            if (!input) return;
-            const max = parseFloat(input.getAttribute('max')) || 0;
-            let v = Number(amount);
-            if (Number.isNaN(v)) v = 0;
-            v = Math.min(max, Math.max(0, v));
-            input.value = Math.round(v * 100) / 100;
-            input.focus();
+            if (window.AmountInput) {
+                AmountInput.setValue('payment-amount', amount);
+                const input = document.getElementById('payment-amount');
+                if (input) input.focus();
+            }
         }
     </script>
 @endpush

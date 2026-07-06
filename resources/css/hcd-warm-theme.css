@@ -5,6 +5,8 @@
 
 :root,
 body.ps-theme-warm {
+    /* Hindari Instrument Sans (angka 0 bergaris) di seluruh UI warm */
+    --font-sans: 'Segoe UI', system-ui, -apple-system, sans-serif;
     --wn-bg: #f4f1ec;
     --wn-surface: #ede8e1;
     --wn-border: #c8bfb4;
@@ -50,6 +52,32 @@ body.ps-theme-warm {
     color: var(--wn-text);
     background: var(--wn-bg) !important;
     -webkit-font-smoothing: antialiased;
+    font-feature-settings: normal;
+    font-variant-numeric: lining-nums;
+}
+
+/* Angka 0 polos (tanpa garis diagonal di tengah — slashed zero) */
+body.ps-theme-warm input,
+body.ps-theme-warm textarea,
+body.ps-theme-warm select,
+body.ps-theme-warm button,
+body.ps-theme-warm table,
+body.ps-theme-warm .num,
+body.ps-theme-warm .amt,
+body.ps-theme-warm .sisa,
+body.ps-theme-warm [class*='amount'],
+body.ps-theme-warm [class*='money'],
+body.ps-theme-warm [class*='price'],
+body.ps-theme-warm td,
+body.ps-theme-warm th {
+    font-family: var(--wn-font);
+    font-feature-settings: normal;
+    font-variant-numeric: lining-nums;
+}
+
+body.auth-guest-scope {
+    font-feature-settings: normal;
+    font-variant-numeric: lining-nums;
 }
 
 body.ps-theme-warm h1,
@@ -819,6 +847,15 @@ body.ps-theme-warm.products-page .toolbar-select .form-select {
     color: var(--wn-text) !important;
 }
 
+body.ps-theme-warm.products-page .product-search-wrap input {
+    padding: 10px 14px 10px 42px !important;
+}
+
+body.ps-theme-warm.products-page .product-search-wrap svg {
+    left: 14px;
+    pointer-events: none;
+}
+
 body.ps-theme-warm.products-page .product-search-wrap input:focus,
 body.ps-theme-warm.products-page .toolbar-select .form-select:focus {
     border-color: var(--wn-accent) !important;
@@ -1004,6 +1041,41 @@ body.ps-theme-warm.products-page .product-form-modal .form-select {
     color: var(--wn-text) !important;
     border-color: var(--wn-border) !important;
     min-height: 44px !important;
+}
+
+body.ps-theme-warm.products-page .product-form-modal .price-input-wrap {
+    display: flex;
+    align-items: stretch;
+    min-height: 44px;
+    border: 1.5px solid #a89888 !important;
+    border-radius: 10px !important;
+    background-color: #faf8f5 !important;
+    overflow: hidden;
+    box-shadow: inset 0 1px 2px rgba(30, 23, 16, 0.06);
+}
+
+body.ps-theme-warm.products-page .product-form-modal .price-input-wrap:focus-within {
+    border-color: var(--wn-accent) !important;
+    box-shadow: 0 0 0 3px rgba(26, 92, 66, 0.18) !important;
+}
+
+body.ps-theme-warm.products-page .product-form-modal .price-prefix {
+    display: flex;
+    align-items: center;
+    padding: 0 6px 0 14px;
+    font-weight: 600;
+    color: var(--wn-muted);
+    border-right: 1px solid var(--wn-border);
+    background: var(--wn-surface);
+}
+
+body.ps-theme-warm.products-page .product-form-modal .price-input-wrap .price-display {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 42px !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
 }
 
 body.ps-theme-warm.products-page .product-section-label {

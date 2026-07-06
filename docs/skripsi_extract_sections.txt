@@ -1,0 +1,374 @@
+==== metodologi ====
+Pengujian dan Evaluasi
+Pengujian dan evaluasi dilakukan untuk menilai kualitas sistem informasi inventaris dan penjualan pupuk yang dikembangkan, dengan fokus pada tiga aspek utama, yaitu fungsi sistem, tingkat usabilitas, dan efisiensi performa kerja dalam konteks pencatatan transaksi operasional Toko Pupuk Sawiji Tani secara digital.
+Evaluasi Fungsionalitas (User Acceptance Test - UAT / Black Box Testing)
+Tahap ini dilaksanakan dengan melibatkan langsung pemilik dan karyawan toko sebagai evaluator utama melalui skenario uji coba yang mensimulasikan kegiatan harian di toko. Pengujian dilakukan menggunakan pendekatan blackbox testing, yakni fokus pada keluaran (output) sistem tanpa melihat proses internal kode program guna mendeteksi galat logika operasional [9]. Beberapa skenario yang diuji antara lain pencatatan transaksi penjualan pupuk, pengecekan stok, pencetakan laporan penjualan, dan input pengeluaran toko. Sistem dinyatakan lulus UAT jika seluruh fitur berfungsi sesuai kebutuhan pengguna dan mencapai skor kepuasan minimal 82. 
+Evaluasi Usabilitas (System Usability Scale - SUS)
+Aspek usabilitas dievaluasi menggunakan metode System Usability Scale (SUS) untuk mengukur pengalaman pengguna (user experience) secara subjektif [3], [4]. Evaluasi dilakukan dengan membagikan kuesioner berisi 10 pernyataan menggunakan skala Likert 5 poin kepada pengguna toko yang telah mencoba sistem. Pertanyaan dalam SUS mencakup dimensi kemudahan navigasi, efisiensi penggunaan, konsistensi antarmuka, dan tingkat kepercayaan pengguna saat mengoperasikan aplikasi. Hasil evaluasi dihitung dalam skala 0–100 dan dianggap berhasil jika memperoleh nilai rata-rata minimal 80, yang menunjukkan tingkat usability yang tinggi (Excellent)[6] .
+Evaluasi Efisiensi Performa Tugas (Task Usability Metrics / User Task Rate)
+Aspek performa operasional dievaluasi secara objektif dan kuantitatif menggunakan metode Task Usability Metrics guna mengukur efisiensi kerja pengguna sebelum adanya sistem (manual) dan setelah implementasi sistem digital pada aplikasi Point of Sales (PoS) [8]. Pengujian ini berfokus pada dua parameter utama, yaitu: 
+Waktu Penyelesaian Tugas (Task Completion Time / Time on Task): Mengukur durasi waktu (menit/detik) yang dibutuhkan oleh kasir atau admin untuk menyelesaikan aktivitas spesifik, seperti kecepatan dari saat melayani datangnya pembeli, menulis kuitansi nota, hingga mencetak bukti transaksi. 
+Tingkat Hambatan dan Galat Kerja (Task Friction / Error Rate): Mengukur penurunan tingkat kerepotan kerja pengguna. Sebelum adanya sistem, tingkat kerepotan manual berada di angka 30% akibat tingginya risiko salah hitung kalkulasi harga total, salah input, nota terselip, atau tidak sinkronnya pencatatan buku. Metrik ini membuktikan seberapa besar tingkat kerepotan tersebut berhasil dikurangi melalui kecepatan penulisan dan otomatisasi sistem. 
+Apabila hasil dari pengujian tersebut belum memenuhi ambang batas keberhasilan (SUS < 80 atau UAT < 82), maka sistem akan kembali diperbaiki pada tahap desain solusi untuk disempurnakan antarmuka atau fungsinya. Proses evaluasi ini bersifat iteratif, sesuai prinsip Human-Centered Design, hingga sistem benar-benar dinyatakan siap digunakan untuk mendukung operasional harian Toko Pupuk Sawiji Tani.
+HASIL DAN PEMBAHASAN
+Pengumpulan Data
+Pada tahap ini, pengumpulan data dilakukan untuk memperoleh informasi yang lebih spesifik mengenai kebutuhan pengguna terhadap sistem informasi inventaris pupuk berbasis web yang akan dikembangkan. Dalam metode Human-Centered Design (HCD), pengumpulan data bertujuan untuk memahami aktivitas, kebutuhan, serta kendala yang dialami pengguna sehingga sistem yang dirancang dapat memberikan kemudahan, kenyamanan, dan efisiensi dalam penggunaannya.
+Data diperoleh melalui metode wawancara dan telaah dokumen. Wawancara dilakukan kepada pengguna yang terlibat langsung dalam operasional sistem, yaitu admin dan kasir. Wawancara bertujuan untuk mengetahui kebutuhan pengguna, alur kerja, serta permasalahan yang sering terjadi dalam proses pengelolaan stok dan transaksi penjualan pupuk. Selain itu, telaah dokumen dilakukan terhadap dokumen operasional seperti data stok pupuk, data barang masuk dan keluar, serta laporan transaksi penjualan yang digunakan dalam aktivitas sehari-hari.
+Berdasarkan hasil pengumpulan data, diperoleh beberapa kebutuhan sistem sebagai berikut:
+Admin membutuhkan sistem yang dapat mengelola data pupuk, kategori pupuk, dan stok barang secara terstruktur serta mudah diakses. 
+Kasir membutuhkan fitur transaksi penjualan yang mudah digunakan agar proses pencatatan transaksi menjadi lebih cepat dan meminimalkan kesalahan input data. 
+Sistem perlu menyediakan informasi stok pupuk secara real-time sehingga pengguna dapat mengetahui ketersediaan barang dengan lebih akurat. 
+Sistem diharapkan mampu menghasilkan laporan stok dan laporan transaksi penjualan secara otomatis berdasarkan periode tertentu. 
+Pengguna membutuhkan fitur pencarian dan filter data untuk mempermudah proses pencarian data pupuk maupun transaksi. 
+Sistem diharapkan memiliki tampilan antarmuka yang sederhana dan mudah dipahami agar pengguna dapat mengoperasikan sistem dengan nyaman. 
+Sistem perlu menyediakan riwayat aktivitas (log activity) untuk membantu proses pengawasan dan penelusuran perubahan data. 
+Hasil pengumpulan data ini selanjutnya digunakan sebagai dasar dalam tahap analisis kebutuhan sistem serta perancangan antarmuka yang berfokus pada kebutuhan pengguna sesuai dengan metode Human-Centered Design (HCD).
+ Analisis Kebutuhan Sistem
+Analisis kebutuhan sistem dilakukan berdasarkan hasil wawancara dan telaah dokumen yang telah diperoleh pada tahap pengumpulan data. Analisis ini bertujuan untuk mengetahui kebutuhan pengguna serta fitur yang diperlukan dalam pengembangan sistem inventaris pupuk berbasis web.
+Berdasarkan hasil analisis proses bisnis yang berjalan, pengelolaan data inventaris pupuk, transaksi penjualan, pencatatan stok, serta pembuatan laporan masih dilakukan secara manual atau belum terintegrasi dengan baik. Proses tersebut menyebabkan beberapa permasalahan, seperti kesalahan pencatatan data, kesulitan dalam memantau stok barang, proses transaksi yang kurang efisien, serta pembuatan laporan yang membutuhkan waktu cukup lama.
+Untuk mengatasi permasalahan tersebut, diperlukan sistem inventaris pupuk berbasis web yang mampu membantu proses pengelolaan data secara terkomputerisasi dan terintegrasi. Sistem yang dikembangkan memiliki dua jenis pengguna, yaitu admin dan kasir, dengan hak akses yang berbeda sesuai kebutuhan operasional.
+Admin membutuhkan fitur untuk mengelola data produk, kategori, supplier, stok barang, laporan penjualan, serta data hutang pelanggan. Selain itu, admin juga membutuhkan dashboard yang dapat menampilkan informasi penjualan, kondisi stok barang, dan produk terlaris secara ringkas.
+Sementara itu, kasir membutuhkan fitur transaksi penjualan yang mudah digunakan, pencarian produk, pemindaian barcode, riwayat transaksi, serta pengelolaan pembayaran hutang dan cicilan pelanggan agar proses pelayanan menjadi lebih cepat dan efisien.
+Berdasarkan kebutuhan pengguna tersebut, sistem yang dikembangkan harus mampu menyediakan fitur pengelolaan produk, transaksi penjualan (Point of Sale), pengelolaan stok, pengelolaan hutang dan cicilan, serta pembuatan laporan penjualan dan stok secara otomatis. Selain kebutuhan fungsional, sistem juga harus memperhatikan aspek keamanan, kemudahan penggunaan, kecepatan akses, dan kompatibilitas pada berbagai browser agar sistem dapat digunakan dengan baik oleh pengguna.
+Analisis Proses Bisnis
+Analisis proses bisnis dilakukan untuk mempelajari alur kegiatan pada sistem inventaris pupuk berbasis web yang diterapkan pada toko pupuk. Proses bisnis yang dianalisis meliputi pengelolaan data produk, transaksi penjualan, pengelolaan stok barang, pengelolaan hutang dan cicilan pelanggan, serta pembuatan laporan penjualan dan stok barang. Analisis ini bertujuan untuk memahami proses bisnis yang berjalan sehingga sistem yang dikembangkan dapat mendukung aktivitas operasional secara lebih efektif dan efisien.
+Berdasarkan hasil analisis, proses pengelolaan inventaris yang berjalan sebelumnya masih dilakukan secara manual, terutama dalam pencatatan transaksi penjualan, pengelolaan stok barang, dan pembuatan laporan. Data produk dan transaksi dicatat secara terpisah sehingga sering terjadi kesalahan pencatatan, keterlambatan dalam pengolahan data, serta kesulitan dalam proses monitoring stok barang. Selain itu, proses pencarian data transaksi dan pembuatan laporan membutuhkan waktu yang cukup lama karena dilakukan secara manual.
+Dengan adanya sistem inventaris pupuk berbasis web yang dikembangkan menggunakan framework Laravel, seluruh proses bisnis diharapkan dapat berjalan secara terkomputerisasi dan terintegrasi. Sistem ini memiliki tiga jenis pengguna, yaitu admin, kasir, dan manager, yang memiliki hak akses sesuai dengan tugas masing-masing. Admin bertugas mengelola data master, stok barang, dan laporan. Kasir bertugas melakukan transaksi penjualan serta pengelolaan pembayaran hutang pelanggan. Sementara itu, manager memiliki akses untuk melihat dashboard analitik dan laporan sebagai bahan monitoring dan pengambilan keputusan.
+Salah satu proses bisnis utama dalam sistem ini adalah proses transaksi penjualan melalui fitur Point of Sale (POS). Proses ini dimulai ketika pengguna melakukan login ke dalam sistem, kemudian memilih menu POS untuk melakukan transaksi penjualan. Pengguna dapat mencari produk secara manual maupun menggunakan fitur scan barcode agar proses transaksi menjadi lebih cepat dan akurat.
+Setelah produk dipilih, pengguna memasukkan jumlah barang yang akan dibeli pelanggan. Sistem kemudian melakukan pengecekan stok barang secara otomatis untuk memastikan jumlah stok mencukupi. Apabila stok barang tidak mencukupi, sistem akan menampilkan notifikasi kepada pengguna dan transaksi tidak dapat dilanjutkan. Namun, apabila stok tersedia, pengguna dapat melanjutkan proses transaksi dengan memilih metode pembayaran tunai ataupun kredit.
+Setelah metode pembayaran dipilih, sistem akan menyimpan data transaksi penjualan dan secara otomatis memperbarui jumlah stok barang pada sistem. Selain itu, sistem juga mencatat setiap perubahan stok ke dalam riwayat pergerakan stok (stock movement) agar seluruh aktivitas stok dapat dipantau dengan baik. Pada transaksi kredit, sistem akan otomatis membuat data hutang pelanggan yang nantinya dapat dikelola melalui fitur pembayaran hutang dan cicilan.
+Setelah transaksi berhasil diproses, sistem akan menampilkan bukti transaksi serta menyimpan data transaksi ke dalam riwayat penjualan. Data transaksi tersebut selanjutnya dapat digunakan dalam proses monitoring penjualan dan pembuatan laporan secara otomatis berdasarkan periode harian, mingguan, maupun bulanan.
+Alur proses transaksi penjualan pada sistem inventaris pupuk berbasis web ditunjukkan pada Gambar 4.1 berikut.
+Gambar 4. 1 Flowchart proses transaksi
+Flowchart pada Gambar 4.1 menjelaskan tahapan proses transaksi penjualan yang dimulai dari login pengguna ke dalam sistem, kemudian pengguna memilih menu POS dan melakukan pencarian produk atau scan barcode. Setelah produk dipilih, pengguna memasukkan jumlah barang yang akan dibeli dan sistem melakukan pengecekan terhadap ketersediaan stok barang.
+Apabila stok tersedia, pengguna dapat memilih metode pembayaran tunai atau kredit. Selanjutnya sistem menyimpan data transaksi, memperbarui jumlah stok barang, serta mencatat pergerakan stok ke dalam riwayat stok. Jika transaksi dilakukan secara kredit, maka sistem akan otomatis membuat data hutang pelanggan. Setelah proses transaksi selesai, sistem menampilkan bukti transaksi dan menyimpan data transaksi ke dalam riwayat penjualan.
+Analisis Kebutuhan Pengguna
+Berdasarkan hasil analisis kebutuhan, sistem informasi inventaris pupuk berbasis web melibatkan beberapa kelompok pengguna dengan peran dan kebutuhan yang berbeda sesuai dengan tugas dan tanggung jawabnya dalam operasional toko pupuk. Masing-masing pengguna memiliki hak akses dan fungsi yang disesuaikan dengan kebutuhan pengelolaan data, transaksi penjualan, serta monitoring stok barang.
+Adapun pengguna dalam sistem ini terdiri dari Admin dan Kasir.
+Admin merupakan pengguna yang memiliki hak akses penuh terhadap sistem. Admin bertanggung jawab dalam pengelolaan data master, pengelolaan stok barang, monitoring transaksi, serta pengelolaan laporan sistem. Kebutuhan Admin dalam sistem meliputi:
+Melakukan login dan logout ke dalam sistem. 
+Mengelola data produk pupuk, kategori produk, dan supplier. 
+Menambah, mengubah, menghapus, dan melihat data produk. 
+Mengelola data pengguna sistem. 
+Melakukan penyesuaian stok barang apabila terjadi selisih stok.
+Melihat riwayat pergerakan stok barang. 
+Melihat dashboard ringkasan penjualan dan kondisi stok barang.
+Melihat notifikasi stok minimum (low stock alert).
+Mengelola data hutang dan cicilan pelanggan.
+Menghasilkan laporan penjualan, laporan stok, dan laporan produk berdasarkan periode tertentu.
+Mengunduh laporan dalam format Excel.
+Kasir merupakan pengguna yang bertugas melakukan transaksi penjualan dan pengelolaan pembayaran pelanggan. Sistem diharapkan mampu membantu kasir dalam mempercepat proses transaksi serta meminimalkan kesalahan pencatatan data. Kebutuhan Kasir dalam sistem meliputi:
+Melakukan login dan logout ke dalam sistem.
+Melakukan transaksi penjualan melalui fitur Point of Sale (POS).
+
+==== hasil_kebutuhan ====
+HASIL DAN PEMBAHASAN
+Pengumpulan Data
+Pada tahap ini, pengumpulan data dilakukan untuk memperoleh informasi yang lebih spesifik mengenai kebutuhan pengguna terhadap sistem informasi inventaris pupuk berbasis web yang akan dikembangkan. Dalam metode Human-Centered Design (HCD), pengumpulan data bertujuan untuk memahami aktivitas, kebutuhan, serta kendala yang dialami pengguna sehingga sistem yang dirancang dapat memberikan kemudahan, kenyamanan, dan efisiensi dalam penggunaannya.
+Data diperoleh melalui metode wawancara dan telaah dokumen. Wawancara dilakukan kepada pengguna yang terlibat langsung dalam operasional sistem, yaitu admin dan kasir. Wawancara bertujuan untuk mengetahui kebutuhan pengguna, alur kerja, serta permasalahan yang sering terjadi dalam proses pengelolaan stok dan transaksi penjualan pupuk. Selain itu, telaah dokumen dilakukan terhadap dokumen operasional seperti data stok pupuk, data barang masuk dan keluar, serta laporan transaksi penjualan yang digunakan dalam aktivitas sehari-hari.
+Berdasarkan hasil pengumpulan data, diperoleh beberapa kebutuhan sistem sebagai berikut:
+Admin membutuhkan sistem yang dapat mengelola data pupuk, kategori pupuk, dan stok barang secara terstruktur serta mudah diakses. 
+Kasir membutuhkan fitur transaksi penjualan yang mudah digunakan agar proses pencatatan transaksi menjadi lebih cepat dan meminimalkan kesalahan input data. 
+Sistem perlu menyediakan informasi stok pupuk secara real-time sehingga pengguna dapat mengetahui ketersediaan barang dengan lebih akurat. 
+Sistem diharapkan mampu menghasilkan laporan stok dan laporan transaksi penjualan secara otomatis berdasarkan periode tertentu. 
+Pengguna membutuhkan fitur pencarian dan filter data untuk mempermudah proses pencarian data pupuk maupun transaksi. 
+Sistem diharapkan memiliki tampilan antarmuka yang sederhana dan mudah dipahami agar pengguna dapat mengoperasikan sistem dengan nyaman. 
+Sistem perlu menyediakan riwayat aktivitas (log activity) untuk membantu proses pengawasan dan penelusuran perubahan data. 
+Hasil pengumpulan data ini selanjutnya digunakan sebagai dasar dalam tahap analisis kebutuhan sistem serta perancangan antarmuka yang berfokus pada kebutuhan pengguna sesuai dengan metode Human-Centered Design (HCD).
+ Analisis Kebutuhan Sistem
+Analisis kebutuhan sistem dilakukan berdasarkan hasil wawancara dan telaah dokumen yang telah diperoleh pada tahap pengumpulan data. Analisis ini bertujuan untuk mengetahui kebutuhan pengguna serta fitur yang diperlukan dalam pengembangan sistem inventaris pupuk berbasis web.
+Berdasarkan hasil analisis proses bisnis yang berjalan, pengelolaan data inventaris pupuk, transaksi penjualan, pencatatan stok, serta pembuatan laporan masih dilakukan secara manual atau belum terintegrasi dengan baik. Proses tersebut menyebabkan beberapa permasalahan, seperti kesalahan pencatatan data, kesulitan dalam memantau stok barang, proses transaksi yang kurang efisien, serta pembuatan laporan yang membutuhkan waktu cukup lama.
+Untuk mengatasi permasalahan tersebut, diperlukan sistem inventaris pupuk berbasis web yang mampu membantu proses pengelolaan data secara terkomputerisasi dan terintegrasi. Sistem yang dikembangkan memiliki dua jenis pengguna, yaitu admin dan kasir, dengan hak akses yang berbeda sesuai kebutuhan operasional.
+Admin membutuhkan fitur untuk mengelola data produk, kategori, supplier, stok barang, laporan penjualan, serta data hutang pelanggan. Selain itu, admin juga membutuhkan dashboard yang dapat menampilkan informasi penjualan, kondisi stok barang, dan produk terlaris secara ringkas.
+Sementara itu, kasir membutuhkan fitur transaksi penjualan yang mudah digunakan, pencarian produk, pemindaian barcode, riwayat transaksi, serta pengelolaan pembayaran hutang dan cicilan pelanggan agar proses pelayanan menjadi lebih cepat dan efisien.
+Berdasarkan kebutuhan pengguna tersebut, sistem yang dikembangkan harus mampu menyediakan fitur pengelolaan produk, transaksi penjualan (Point of Sale), pengelolaan stok, pengelolaan hutang dan cicilan, serta pembuatan laporan penjualan dan stok secara otomatis. Selain kebutuhan fungsional, sistem juga harus memperhatikan aspek keamanan, kemudahan penggunaan, kecepatan akses, dan kompatibilitas pada berbagai browser agar sistem dapat digunakan dengan baik oleh pengguna.
+Analisis Proses Bisnis
+Analisis proses bisnis dilakukan untuk mempelajari alur kegiatan pada sistem inventaris pupuk berbasis web yang diterapkan pada toko pupuk. Proses bisnis yang dianalisis meliputi pengelolaan data produk, transaksi penjualan, pengelolaan stok barang, pengelolaan hutang dan cicilan pelanggan, serta pembuatan laporan penjualan dan stok barang. Analisis ini bertujuan untuk memahami proses bisnis yang berjalan sehingga sistem yang dikembangkan dapat mendukung aktivitas operasional secara lebih efektif dan efisien.
+Berdasarkan hasil analisis, proses pengelolaan inventaris yang berjalan sebelumnya masih dilakukan secara manual, terutama dalam pencatatan transaksi penjualan, pengelolaan stok barang, dan pembuatan laporan. Data produk dan transaksi dicatat secara terpisah sehingga sering terjadi kesalahan pencatatan, keterlambatan dalam pengolahan data, serta kesulitan dalam proses monitoring stok barang. Selain itu, proses pencarian data transaksi dan pembuatan laporan membutuhkan waktu yang cukup lama karena dilakukan secara manual.
+Dengan adanya sistem inventaris pupuk berbasis web yang dikembangkan menggunakan framework Laravel, seluruh proses bisnis diharapkan dapat berjalan secara terkomputerisasi dan terintegrasi. Sistem ini memiliki tiga jenis pengguna, yaitu admin, kasir, dan manager, yang memiliki hak akses sesuai dengan tugas masing-masing. Admin bertugas mengelola data master, stok barang, dan laporan. Kasir bertugas melakukan transaksi penjualan serta pengelolaan pembayaran hutang pelanggan. Sementara itu, manager memiliki akses untuk melihat dashboard analitik dan laporan sebagai bahan monitoring dan pengambilan keputusan.
+Salah satu proses bisnis utama dalam sistem ini adalah proses transaksi penjualan melalui fitur Point of Sale (POS). Proses ini dimulai ketika pengguna melakukan login ke dalam sistem, kemudian memilih menu POS untuk melakukan transaksi penjualan. Pengguna dapat mencari produk secara manual maupun menggunakan fitur scan barcode agar proses transaksi menjadi lebih cepat dan akurat.
+Setelah produk dipilih, pengguna memasukkan jumlah barang yang akan dibeli pelanggan. Sistem kemudian melakukan pengecekan stok barang secara otomatis untuk memastikan jumlah stok mencukupi. Apabila stok barang tidak mencukupi, sistem akan menampilkan notifikasi kepada pengguna dan transaksi tidak dapat dilanjutkan. Namun, apabila stok tersedia, pengguna dapat melanjutkan proses transaksi dengan memilih metode pembayaran tunai ataupun kredit.
+Setelah metode pembayaran dipilih, sistem akan menyimpan data transaksi penjualan dan secara otomatis memperbarui jumlah stok barang pada sistem. Selain itu, sistem juga mencatat setiap perubahan stok ke dalam riwayat pergerakan stok (stock movement) agar seluruh aktivitas stok dapat dipantau dengan baik. Pada transaksi kredit, sistem akan otomatis membuat data hutang pelanggan yang nantinya dapat dikelola melalui fitur pembayaran hutang dan cicilan.
+Setelah transaksi berhasil diproses, sistem akan menampilkan bukti transaksi serta menyimpan data transaksi ke dalam riwayat penjualan. Data transaksi tersebut selanjutnya dapat digunakan dalam proses monitoring penjualan dan pembuatan laporan secara otomatis berdasarkan periode harian, mingguan, maupun bulanan.
+Alur proses transaksi penjualan pada sistem inventaris pupuk berbasis web ditunjukkan pada Gambar 4.1 berikut.
+Gambar 4. 1 Flowchart proses transaksi
+Flowchart pada Gambar 4.1 menjelaskan tahapan proses transaksi penjualan yang dimulai dari login pengguna ke dalam sistem, kemudian pengguna memilih menu POS dan melakukan pencarian produk atau scan barcode. Setelah produk dipilih, pengguna memasukkan jumlah barang yang akan dibeli dan sistem melakukan pengecekan terhadap ketersediaan stok barang.
+Apabila stok tersedia, pengguna dapat memilih metode pembayaran tunai atau kredit. Selanjutnya sistem menyimpan data transaksi, memperbarui jumlah stok barang, serta mencatat pergerakan stok ke dalam riwayat stok. Jika transaksi dilakukan secara kredit, maka sistem akan otomatis membuat data hutang pelanggan. Setelah proses transaksi selesai, sistem menampilkan bukti transaksi dan menyimpan data transaksi ke dalam riwayat penjualan.
+Analisis Kebutuhan Pengguna
+Berdasarkan hasil analisis kebutuhan, sistem informasi inventaris pupuk berbasis web melibatkan beberapa kelompok pengguna dengan peran dan kebutuhan yang berbeda sesuai dengan tugas dan tanggung jawabnya dalam operasional toko pupuk. Masing-masing pengguna memiliki hak akses dan fungsi yang disesuaikan dengan kebutuhan pengelolaan data, transaksi penjualan, serta monitoring stok barang.
+Adapun pengguna dalam sistem ini terdiri dari Admin dan Kasir.
+Admin merupakan pengguna yang memiliki hak akses penuh terhadap sistem. Admin bertanggung jawab dalam pengelolaan data master, pengelolaan stok barang, monitoring transaksi, serta pengelolaan laporan sistem. Kebutuhan Admin dalam sistem meliputi:
+Melakukan login dan logout ke dalam sistem. 
+Mengelola data produk pupuk, kategori produk, dan supplier. 
+Menambah, mengubah, menghapus, dan melihat data produk. 
+Mengelola data pengguna sistem. 
+Melakukan penyesuaian stok barang apabila terjadi selisih stok.
+Melihat riwayat pergerakan stok barang. 
+Melihat dashboard ringkasan penjualan dan kondisi stok barang.
+Melihat notifikasi stok minimum (low stock alert).
+Mengelola data hutang dan cicilan pelanggan.
+Menghasilkan laporan penjualan, laporan stok, dan laporan produk berdasarkan periode tertentu.
+Mengunduh laporan dalam format Excel.
+Kasir merupakan pengguna yang bertugas melakukan transaksi penjualan dan pengelolaan pembayaran pelanggan. Sistem diharapkan mampu membantu kasir dalam mempercepat proses transaksi serta meminimalkan kesalahan pencatatan data. Kebutuhan Kasir dalam sistem meliputi:
+Melakukan login dan logout ke dalam sistem.
+Melakukan transaksi penjualan melalui fitur Point of Sale (POS).
+Mencari produk secara cepat dan menggunakan scan barcode saat transaksi.
+Memasukkan jumlah barang dan melihat total transaksi secara otomatis.
+Melihat stok barang secara ringkas saat proses transaksi berlangsung.
+Melihat riwayat transaksi penjualan.
+Melakukan pembatalan transaksi apabila terjadi kesalahan input.
+Mencatat pembayaran hutang pelanggan.
+Melakukan pembayaran cicilan pelanggan.
+Mencetak atau melihat bukti transaksi penjualan.
+Analisis Kebutuhan Sistem
+Analisis kebutuhan sistem dilakukan untuk menentukan kebutuhan yang harus dipenuhi oleh sistem informasi inventaris pupuk berbasis web agar dapat mendukung proses pengelolaan stok, transaksi penjualan, dan pembuatan laporan secara efektif, efisien, dan terintegrasi. Kebutuhan sistem ini disusun berdasarkan hasil analisis proses bisnis dan kebutuhan pengguna yang telah dilakukan sebelumnya.
+Kebutuhan sistem dalam penelitian ini diklasifikasikan menjadi dua bagian, yaitu kebutuhan fungsional dan kebutuhan non-fungsional.
+Analisis Kebutuhan Fungsional
+Kebutuhan fungsional menggambarkan fungsi atau layanan yang harus disediakan oleh sistem agar dapat mendukung aktivitas pengguna sesuai dengan perannya dalam pengelolaan inventaris pupuk.
+Adapun kebutuhan fungsional sistem adalah sebagai berikut:
+Fungsi Autentikasi dan Pengelolaan Akses, sistem harus menyediakan mekanisme login dan logout serta pembatasan hak akses berdasarkan peran pengguna, yaitu Admin dan Kasir.
+Fungsi Pengelolaan Data Pengguna, sistem harus memungkinkan Admin untuk mengelola data pengguna yang terdaftar pada sistem.
+Fungsi Pengelolaan Data Produk, sistem harus mampu mengelola data produk pupuk meliputi tambah, ubah, hapus, dan melihat data produk.
+Fungsi Pengelolaan Kategori dan Supplier, sistem harus memungkinkan pengelolaan data kategori produk dan supplier yang digunakan dalam proses pengelolaan inventaris.
+Fungsi Transaksi Penjualan, sistem harus menyediakan fitur transaksi penjualan melalui Point of Sale (POS) secara terkomputerisasi.
+Fungsi Pencarian Produk dan Barcode, sistem harus memungkinkan pengguna melakukan pencarian produk secara cepat serta mendukung penggunaan scan barcode saat proses transaksi.
+Fungsi Pengelolaan Stok Barang, sistem harus mampu melakukan pengurangan dan penambahan stok barang secara otomatis berdasarkan aktivitas transaksi dan penyesuaian stok.
+Fungsi Riwayat Pergerakan Stok, sistem harus mampu mencatat seluruh aktivitas pergerakan stok barang (stock movement) sebagai riwayat perubahan stok.
+Fungsi Notifikasi Stok Minimum, sistem harus mampu menampilkan notifikasi (low stock alert) untuk produk dengan jumlah stok minimum.
+Fungsi Pengelolaan Hutang dan Cicilan, sistem harus menyediakan fitur pengelolaan hutang pelanggan, pembayaran hutang, serta pembayaran cicilan pelanggan.
+Fungsi Dashboard, sistem harus menyediakan dashboard yang menampilkan ringkasan penjualan dan kondisi stok barang.
+Fungsi Laporan, sistem harus menyediakan laporan penjualan, laporan stok, dan laporan produk berdasarkan periode tertentu yang dapat ditampilkan dan dicetak dalam format Excel.
+Analisis Kebutuhan Non-Fungsional
+                    Selain kebutuhan fungsional, sistem juga harus memenuhi kebutuhan non-fungsional      untuk menjamin kualitas dan keandalan sistem informasi inventaris pupuk berbasis web, yaitu:
+Keamanan, sistem harus memiliki mekanisme keamanan yang baik, meliputi enkripsi password, validasi input data, pembatasan hak akses sesuai peran pengguna (Admin dan Kasir), serta pengelolaan session pengguna untuk mencegah akses yang tidak sah.
+Kinerja, sistem harus memiliki waktu respon yang cepat dalam memproses transaksi penjualan, pencarian produk, pengelolaan stok, dan pembuatan laporan. Sistem juga harus mampu menangani data produk dan transaksi dalam jumlah yang cukup banyak selama operasional berlangsung.
+
+==== pengujian_intro ====
+Pengujian
+Tahapan pengujian dilakukan untuk memastikan seluruh fitur pada sistem informasi penjualan toko pupuk dapat berjalan sesuai dengan kebutuhan dan fungsi yang telah dirancang. Metode pengujian yang digunakan adalah Black Box Testing dan System Usability Scale (SUS). Black Box Testing dilakukan dengan menguji fungsi sistem berdasarkan masukan dan keluaran yang dihasilkan tanpa melihat kode program secara langsung, seperti pengujian login, transaksi penjualan, pengelolaan stok, laporan, hutang pelanggan, dan rencana cicilan. Selain itu, pengujian menggunakan metode SUS dilakukan untuk mengetahui tingkat kemudahan penggunaan sistem berdasarkan penilaian pengguna melalui kuesioner. Melalui tahapan pengujian ini, sistem diharapkan dapat berjalan dengan baik, mudah digunakan, serta mampu mendukung kegiatan operasional toko pupuk secara efektif dan efisien.
+Pengujian Fungsionalitas (Black Box Testing)
+Pengujian fungsionalitas dilakukan untuk memastikan bahwa seluruh fitur utama pada sistem informasi point of sale (POS) toko pupuk berbasis web telah berjalan sesuai dengan kebutuhan sistem yang telah ditetapkan. Pengujian ini bertujuan untuk menilai apakah setiap fitur dapat digunakan dengan baik oleh pengguna dan mampu memberikan hasil keluaran yang sesuai dengan proses yang diharapkan.
+Metode yang digunakan dalam pengujian ini adalah Black Box Testing, yaitu metode pengujian yang berfokus pada pengujian fungsi sistem berdasarkan masukan dan keluaran tanpa melihat proses internal program. Pengujian dilakukan secara bertahap pada setiap fitur sistem, seperti pengelolaan produk, transaksi penjualan, manajemen stok, data pelanggan, hutang, dan cicilan. Apabila ditemukan kesalahan selama proses pengujian, maka sistem akan diperbaiki dan diuji kembali hingga seluruh fungsi dapat berjalan dengan optimal dan sistem dinyatakan siap untuk digunakan.
+Ruang Lingkup Pengujian Black Box
+Ruang lingkup pengujian Black Box pada penelitian ini mencakup seluruh fitur utama yang terdapat pada sistem informasi point of sale (POS) toko pupuk berbasis web. Pengujian dilakukan terhadap hak akses pengguna, yaitu admin dan kasir, untuk memastikan setiap fungsi sistem dapat berjalan sesuai dengan peran masing-masing pengguna. Pengujian difokuskan pada proses utama sistem, seperti login pengguna, pengelolaan data produk, kategori, supplier, transaksi penjualan, pengelolaan stok barang, data pelanggan, pencatatan hutang, pembayaran cicilan, hingga pembuatan laporan transaksi. Setiap fitur diuji menggunakan berbagai skenario masukan guna memastikan sistem mampu memberikan respons dan hasil yang sesuai dengan kondisi yang diberikan oleh pengguna.
+Hasil Pengujian Black Box
+Hasil pengujian Black Box pada sistem informasi point of sale (POS) toko pupuk disajikan dalam bentuk tabel pengujian yang digunakan untuk menunjukkan kesesuaian antara hasil yang diharapkan dengan hasil yang diperoleh dari sistem setelah pengujian dilakukan. Pengujian mencakup berbagai fitur utama sistem, seperti proses login, pengelolaan data produk, transaksi penjualan, manajemen stok, pengelolaan pelanggan, pencatatan hutang dan cicilan, serta pembuatan laporan. Berdasarkan hasil pengujian yang telah dilakukan, seluruh fitur utama pada sistem dapat berjalan dengan baik dan sesuai dengan fungsi yang telah dirancang sebelumnya.
+Pengujian Pembuatan Akun Pengguna
+Tabel 4. 14 Pengujian Pembuatan Akun Pengguna
+No 
+Skenario 
+Pengujian 
+Test Case 
+Hasil yang 
+Diharapkan 
+Hasil 
+Pengujian 
+Kesimpulan 
+1 
+Semua field kosong 
+Semua field dikosongkan 
+Sistem menolak dan menampilkan validasi field wajib 
+Sesuai harapan 
+Valid 
+2
+Email kosong
+Nama diisi, email kosong
+Sistem menolak dan menampilkan pesan email wajib diisi
+Sesuai Harapan
+Valid
+3
+Format email salah
+Email: andika@
+Sistem menolak dan menampilkan pesan format email tidak valid
+Sesuai Harapan
+Valid
+4
+Password kurang dari 8 karakter
+Password: 12345
+Sistem menolak dan menampilkan pesan minimal 8 karakter
+Sesuai Harapan
+Valid
+5
+Konfirmasi password berbeda
+
+==== sus ====
+Pengujian System Usability Scale (SUS)
+Evaluasi usabilitas dilakukan guna mengukur tingkat kemudahan dan kenyamanan penggunaan sistem informasi penjualan pupuk pada Toko Pupuk Sawiji Tani dari sudut pandang subjektif pengguna akhir (end-user). Metode System Usability Scale (SUS) dipilih dalam penelitian ini karena merupakan instrumen pengujian usability standar yang efisien, andal, serta telah terbukti efektif dalam mengevaluasi berbagai sistem informasi berbasis web.
+Instrumen pengujian SUS diimplementasikan menggunakan kuesioner standar yang memuat 10 butir pernyataan dengan pilihan skala Likert 1 (Sangat Tidak Setuju) sampai 5 (Sangat Setuju). Di dalam struktur kuesioner ini, pernyataan bernomor ganjil merepresentasikan aspek positif dari sistem, sementara pernyataan bernomor genap merepresentasikan aspek negatif. Setiap responden diminta untuk memberikan penilaian objektif berdasarkan pengalaman langsung mereka selama menguji coba dan mengoperasikan sistem informasi penjualan tersebut.
+Pengujian SUS dalam penelitian ini melibatkan responden yang terdiri dari pemilik toko, admin pengelola stok, dan kasir sebagai pengguna utama sistem. Berdasarkan rekapitulasi data kuesioner yang telah dihitung menggunakan ketentuan konversi skor SUS, diperoleh rata-rata nilai total skor SUS untuk sistem informasi penjualan pupuk sebesar 84.0. Merujuk pada grafik rujukan standardisasi kualifikasi SUS (Gambar 4.x), capaian nilai tersebut menunjukkan bahwa aplikasi penjualan berbasis web ini masuk ke dalam kategori Acceptable (Dapat Diterima) dengan predikat Grade B, serta diklasifikasikan ke dalam kategori adjective rating Excellent (Sangat Bagus). Hal ini membuktikan bahwa rancangan antarmuka berbasis Human-Centered Design (HCD) yang dikembangkan telah berhasil memenuhi kebutuhan operasional toko serta sangat mudah dipahami oleh pengguna.
+Tabel 4. 26 Data Responden System Usability Scale (SUS)
+No 
+Responden 
+Q1 
+Q2 
+Q3 
+Q4 
+Q5 
+Q6 
+Q7 
+Q8 
+Q9 
+Q10 
+1 
+Responden 1 
+5
+2 
+5 
+2 
+4 
+2 
+4 
+2 
+5 
+2 
+2 
+Responden 2 
+5
+1 
+4 
+2 
+4
+1 
+5 
+2 
+4 
+2 
+3 
+Responden 3 
+5 
+2 
+4 
+2 
+5 
+1 
+4
+1 
+5 
+2 
+4 
+Responden 4 
+4 
+3 
+4 
+2 
+5 
+3 
+4
+2 
+5 
+3 
+5 
+Responden 5 
+5
+1 
+5
+2 
+5 
+2 
+4 
+1
+5 
+1 
+Tabel 4.26 menampilkan hasil pengisian kuesioner System Usability Scale (SUS) oleh seluruh responden. Setiap responden memberikan penilaian terhadap 10 pernyataan dengan menggunakan skala 1 sampai 5, yang kemudian diolah untuk memperoleh skor SUS masingmasing responden.. 
+Adapun langkah-langkah perhitungan skor SUS adalah sebagai berikut: 
+Pada pernyataan bernomor ganjil (1, 3, 5, 7, 9), skor dihitung dengan cara mengurangi nilai jawaban dengan 1.  
+Pada pernyataan bernomor genap (2, 4, 6, 8, 10), skor dihitung dengan cara mengurangkan nilai jawaban dari 5.  
+Seluruh skor yang diperoleh dijumlahkan untuk mendapatkan skor awal. 
+Skor awal kemudian dikalikan dengan 2,5 untuk memperoleh skor SUS akhir dengan rentang 0–100.  
+ Hasil akhir perhitungan skor SUS untuk setiap responden serta nilai rata-ratanya disajikan pada Tabel 4.27
+Tabel 4. 27 Perhitungan System Usability Scale (SUS)
+
+==== tum ====
+Hasil Analisis Efisiensi Performa Kerja (Task Usability Metrics) 
+Tahap evaluasi performa operasional dilakukan secara kuantitatif melalui metode Task Usability Metrics (Uji User Task Rate) untuk mengukur efisiensi kerja riil pengguna. Pengujian ini bersifat komplementer terhadap uji kepuasan subjektif SUS, dengan tujuan membandingkan secara langsung performa kerja sebelum adanya sistem (baseline manual) dan setelah implementasi sistem informasi Point of Sale (POS) berbasis web di Toko Pupuk Sawiji Tani. 
+Pengujian berfokus pada tiga skenario aktivitas utama yang menjadi kendala terbesar pada proses bisnis lama. Rekapitulasi perbandingan hasil pengujian efisiensi tugas operasional disajikan pada Tabel 4.29 berikut.
+Tabel 4. 29 Matriks Perbandingan Efisiensi Tugas Operasional Toko
+N0 
+Skenario Tugas (Task)
+Metrik Performa
+Sebelum Sistem (Manual / Buku)
+Sesudah Sistem (Sistem POS Laravel)
+Kesimpulan / Dampak Efisiensi 
+1
+Melayani Transaksi & Menulis Kuitansi 
+Kecepatan (Waktu)
+Kerepotan (Error Rate)
+2 - 4 Menit per nota  
+30% (Sering 
+salah hitung 
+& selisih uang)
+30 - 45 Detik per transaksi
+0% (Kalkulasi otomatis oleh sistem)
+Waktu terpangkas hingga 80%, perhitungan harga 100% akurat secara otomatis.
+2
+Pengecekan Ketersediaan Stok Barang
+Kecepatan (Waktu)
+Kerepotan (Error Rate) 
+2 - 5 Menit (Cek buku stok / fisik gudang)
+25% (Catatan buku & fisik tidak sinkron)
+3 - 5 Detik (Hanya ketik nama barang / scan)
+0% (Stok terpotong real-time di sistem)
+Pencarian stok instan, mencegah miskomunikasi ketersediaan barang dengan pembeli.
+3
+Rekapitulasi & Pembuatan Laporan
+Kecepatan (Waktu)
+Kerepotan (Error Rate)
+3 - 4 Hari kerja di akhir bulan 
+40% (Stres tinggi mencari nota yang hilang) 
+< 30 Detik (Satu klik unduh data) 
+0% (Laporan otomatis di-generate Excel)
+Pembuatan laporan bulanan dipercepat dari hitungan hari menjadi hitungan detik.
+Berdasarkan sajian data pada Tabel 4.29, diperoleh analisis mendalam mengenai dampak digitalisasi sistem terhadap efisiensi toko sebagai berikut:
+Reduksi Tingkat Kerepotan Kerja (Error/Friction Rate) Sebelum sistem diterapkan, tingkat kerepotan atau kesalahan (Error Rate) kasir dalam menulis kuitansi belanja harian berada di angka 30%. Hal ini disebabkan oleh keterbatasan kasir yang harus menulis nama produk satu per satu di nota kertas dan menghitung total harga secara manual menggunakan kalkulator, sehingga rawan menimbulkan selisih kas harian. Setelah beralih menggunakan modul POS Laravel, tingkat kerepotan berhasil ditekan hingga 0% karena seluruh operasi matematika (subtotal, potongan diskon transaksi, hingga sisa hutang kredit) dikalkulasi secara presisi dan otomatis oleh sistem database. 
+Akurasi Monitoring Inventaris Tingkat ketidakakuratan data stok berkurang dari 25% menjadi 0%. Melalui fitur stock movement dan pengurangan otomatis harian, admin tidak perlu lagi melakukan rekap manual di akhir hari yang berisiko selisih dengan stok fisik gudang. 
+Peningkatan Kecepatan Operasional secara Signifikan Dari segi durasi waktu (Time on Task), waktu tunggu pelanggan saat pembuatan kuitansi terpangkas drastis dari maksimal 4 menit menjadi kurang dari 45 detik saja. Efisiensi paling tinggi dirasakan pada pembuatan laporan bulanan oleh pemilik toko, di mana proses rekapitulasi nota yang semula menyita waktu 3 hingga 4 hari kerja berhasil dipangkas menjadi kurang dari 30 detik melalui otomatisasi ekspor file laporan. 
+
+==== kesimpulan ====
+KESIMPULAN DAN SARAN
+Kesimpulan
+Penelitian ini berhasil merancang dan mengimplementasikan Sistem Informasi Inventaris dan Penjualan Pupuk berbasis web untuk Toko Pupuk Sawiji Tani. Sistem dibangun menggunakan framework Laravel 12, MySQL, dan antarmuka web yang dirancang melalui pendekatan Human-Centered Design (HCD) dengan tema Warm Neutral, sehingga layar lebih mudah dibaca bagi pengguna dewasa ($\pm$50 tahun). Fitur utama yang dikembangkan meliputi autentikasi berbasis peran (admin, kasir, manager), kelola barang dan supplier, transaksi kasir (Point of Sale), pencatatan piutang dan skema cicilan, laporan penjualan, riwayat mutasi stok, dashboard ringkasan, serta fitur penyesuaian stok. 
+Berdasarkan rangkaian tahapan evaluasi paralel yang telah dilaksanakan, diperoleh hasil kesimpulan pengujian sebagai berikut:
+Pengujian black box testing pada 98 skenario menunjukkan fungsi sistem berjalan 100% sesuai spesifikasi fungsional. Validasi input berjalan baik, data transaksi dan stok terbukti konsisten, pembatasan hak akses tiap peran berfungsi, serta fitur laporan operasional (Excel) dapat digunakan sesuai kebutuhan. 
+Evaluasi usabilitas subjektif menggunakan System Usability Scale (SUS) menghasilkan nilai rata-rata 84.0, yang menempatkan sistem ini pada kategori Acceptable (Dapat Diterima) dengan adjective rating Excellent. Hal ini menunjukkan tingkat kenyamanan antarmuka dan kemudahan navigasi aplikasi yang sangat baik dari sudut pandang pengguna. 
+Evaluasi efisiensi performa objek kerja menggunakan metode Task Usability Metrics membuktikan terjadinya peningkatan produktivitas toko secara signifikan. Sistem ini berhasil memangkas tingkat kerepotan atau kesalahan (Error Rate) kerja manual yang semula berada di angka 30% menjadi 0% berkat kalkulasi dan otomatisasi sistem terintegrasi. Dari aspek kecepatan (Time on Task), penulisan kuitansi transaksi harian dipercepat dari durasi 2 hingga 4 menit menjadi hanya 30 hingga 45 detik, serta pembuatan laporan bulanan berhasil dipangkas secara radikal dari durasi 3 hingga 4 hari kerja menjadi kurang dari 30 detik.
+Secara keseluruhan, sistem ini sangat layak digunakan untuk mendukung digitalisasi pencatatan penjualan dan stok pupuk, baik untuk keperluan uji coba (User Acceptance Test), demonstrasi skripsi, maupun sebagai dasar operasional toko harian. Keterbatasan utama pada penelitian ini adalah pengujian eksperimen yang masih dominan dilakukan di lingkungan lokal/developer, belum sepenuhnya diuji pada hosting produksi berskala besar dengan beban pengguna bersamaan dalam jangka panjang.
+Saran
+ Berdasarkan hasil penelitian yang telah dilakukan, sistem informasi inventaris dan penjualan pupuk yang dikembangkan dapat digunakan untuk mendukung pengelolaan stok dan transaksi penjualan di Toko Pupuk Sawiji Tani. Untuk pengembangan selanjutnya, disarankan agar sistem diimplementasikan pada lingkungan operasional toko secara penuh dan dilakukan pencadangan data secara berkala guna menjaga keamanan data. Selain itu, fitur audit log dan notifikasi stok menipis dapat ditambahkan untuk meningkatkan pengawasan serta pengelolaan persediaan barang. Bagi pengelola toko, diperlukan penggunaan sistem secara konsisten serta pengecekan kesesuaian antara stok fisik dan data pada sistem secara berkala agar informasi yang dihasilkan tetap akurat. Penelitian selanjutnya dapat melakukan pengujian pada lingkungan penggunaan yang lebih luas serta mengembangkan fitur tambahan sesuai kebutuhan operasional toko di masa mendatang.
+DAFTAR PUSTAKA
+[1]N. Fithriyah, H. Nisyak, and S. Sunardi, “Optimalisasi Pengelolaan Pupuk Subsidi melalui Aplikasi Web Menggunakan Framework Laravel,” J. Electr. Eng. Comput., vol. 6, no. 2, pp. 531–539, 2024, doi: 10.33650/jeecom.v6i2.9605.
+[2]P. K. Luhukay and E. Mailoa, “Pengembangan Sistem Informasi Penjualan Menggunakan Framework Laravel,” J. Mnemon., vol. 7, no. 2, pp. 234–240, 2024, doi: 10.36040/mnemonic.v7i2.9741.
+[3]H. Dhamara and H. M. Az-zahra, “Perancangan User Experience Aplikasi Penjualan Properti Dengan Metode Human Centered Design ( HCD ) Studi Kasus : PT . Cakrawala Agrapana Indonesia,” J. Pengemb. Teknol. Inf. dan Ilmu Komput., vol. 1, no. 1, pp. 1–9, 2022.
+[4]M. F. Azizunhakim, H. M. Az-Zahra, and N. H. Wardani, “Perancangan User Experience Web-Store Penjualan Produk Kopi serta Olahan Kopi menggunakan Metode Human-Centered Design (Studi Kasus: UMKM Surya Kencana),” J. Pengemb. Teknol. Inf. dan Ilmu Komput., vol. 7, no. 6, pp. 2708–2719, 2023.
+[5]F. Isnanto, M. A. Muhammad, and T. Yulianti, “Rancang Bangun Sistem Visualisasi Data Menggunakan Dashboard Pada Sistem Deteksi Hoaks Melalui Pendekatan Hcd (Human Centered Design),” J. Inform. dan Tek. Elektro Terap., vol. 11, no. 3s1, pp. 806–814, 2023, doi: 10.23960/jitet.v11i3s1.3029.
+[6]F. A. Muzakky, R. S. Sianturi, and M. T. Ananta, “Perancangan Pengalaman Pengguna Aplikasi Sewa Sepeda Motor menggunakan Metode Human-Centered Design (Studi Kasus: Rent-A-Motor Malang),” J. Pengemb. Teknol. Inf. dan Ilmu Komput., vol. 7, no. 6, pp. 2607–2616, 2023.
+[7]T. Thamrin, W. Susanty, D. R. Agustina, and F. A. Rusli, “Metode Human Centered Design pada User Interface (UI)/User Experience (UX) Aplikasi Moneyapp,” Expert J. Manaj. Sist. Inf. dan Teknol., vol. 13, no. 2, p. 86, 2023, doi: 10.36448/expert.v13i2.3067.
+[8]A. Hermanto et al., “Peningkatan Usability Point of Sales (PoS) Berbasis Human Centered Design (HCD),” JOINS (Journal Inf. Syst., vol. 7, no. 1, pp. 1–13, 2022, doi: 10.33633/joins.v7i1.5528.
+[9]N. M. D. Febriyanti, A. . K. Oka Sudana, and I. N. Piarsa, “Implementasi Black Box Testing pada Sistem Informasi Manajemen Dosen,” JITTER  J. Ilm. Teknol. dan Komput., vol. 2, no. 3, p. 535, 2021, doi: 10.24843/jtrti.2021.v02.i03.p12.
+[10]J. K. Tech, “Jurnal KHARISMA Tech |,” no. 02, pp. 157–171, 2022.
+LAMPIRAN
+Lampiran 1. Bukti Wawancara
+Narasumber: Admin dan Kasir Toko Pupuk Sawiji Tani
+Topik: Kebutuhan Sistem Inventaris dan Penjualan Pupuk serta Evaluasi Desain Antarmuka
+Peneliti: Andika Suyandra
+Peneliti:
+Assalamu’alaikum warahmatullahi wabarakatuh.
+Narasumber:
+Wa’alaikumsalam warahmatullahi wabarakatuh.
+Peneliti:
+Bagaimana proses pencatatan penjualan dan stok pupuk yang dilakukan saat ini?
+Narasumber (P1 – Admin):
+Pencatatan masih menggunakan buku tulis biasa. Kalau ingin mencari data penjualan bulan sebelumnya harus membuka catatan satu per satu. Piutang pelanggan juga terkadang lupa dicatat dengan jelas.
+Peneliti:
+Kendala apa yang paling sering dialami saat melakukan pencatatan tersebut?
+Narasumber (P1 – Admin):
+Yang paling sering itu sulit melihat total penjualan dengan cepat. Selain itu takut data hilang kalau buku rusak. Mata juga cepat lelah kalau tulisan di layar terlalu kecil.
+Peneliti:
+Fitur apa yang paling dibutuhkan jika nantinya menggunakan sistem komputerisasi?
+Narasumber (P1 – Admin):
+Saya butuh laporan penjualan yang jelas, data piutang pelanggan terpisah, dan angka rupiah dibuat menggunakan titik supaya tidak salah baca.
+Peneliti:
+Apakah pernah mengalami kesulitan membaca tampilan pada layar komputer?
+Narasumber (P2 – Kasir):
+Iya, terutama kalau tulisan terlalu kecil. Kadang saya salah input jumlah barang karena daftar barang sulit dibaca. Kalau banyak menu juga jadi bingung.
+Peneliti:
+

@@ -51,7 +51,7 @@ class POSSystem {
         }
         
         if (paymentInput) {
-            paymentInput.addEventListener('input', () => this.updatePricing());
+            this.bindAmountInput(paymentInput, () => this.updatePricing());
             paymentInput.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
                     e.preventDefault();
@@ -69,7 +69,7 @@ class POSSystem {
         // Sidebar payment amount live info
         const sidebarAmount = document.getElementById('sidebar-payment-amount');
         if (sidebarAmount) {
-            sidebarAmount.addEventListener('input', () => this.updateSidebarPaymentInfo());
+            this.bindAmountInput(sidebarAmount, () => this.updateSidebarPaymentInfo());
         }
 
         // Toggle metode pengantaran di panel kanan
@@ -342,7 +342,7 @@ class POSSystem {
     updatePricing() {
         const total = this.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
         const discountInput = parseFloat(document.getElementById('discount').value) || 0;
-        const payment = parseFloat(document.getElementById('payment').value) || 0;
+        const payment = this.parseAmountInput(document.getElementById('payment')?.value);
         
         const discountAmount = Math.min(total, Math.max(0, discountInput));
         const afterDiscount = Math.max(0, total - discountAmount);
@@ -382,7 +382,7 @@ class POSSystem {
         const afterDiscount = Math.max(0, total - discountAmount);
         const payment = Math.floor(afterDiscount * percentage);
         
-        document.getElementById('payment').value = payment;
+        this.setAmountInputValue('payment', payment);
         this.updatePricing();
     }
 
@@ -409,7 +409,7 @@ class POSSystem {
 
         const total = this.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
         const discountInput = parseFloat(document.getElementById('discount').value) || 0;
-        const payment = parseFloat(document.getElementById('payment').value) || 0;
+        const payment = this.parseAmountInput(document.getElementById('payment')?.value);
         const discountAmount = Math.min(total, Math.max(0, discountInput));
         const afterDiscount = Math.max(0, total - discountAmount);
         const change = Math.max(0, payment - afterDiscount);
@@ -465,7 +465,7 @@ class POSSystem {
         const modal = document.getElementById('sidebar-payment-modal');
 
         if (totalEl) totalEl.textContent = this.formatRupiah(afterDiscount);
-        if (amountEl) amountEl.value = afterDiscount;
+        if (amountEl) amountEl.value = this.formatAmountInput(afterDiscount);
         if (modal) modal.style.display = 'flex';
 
         this.updateSidebarPaymentInfo();
@@ -510,11 +510,8 @@ class POSSystem {
     }
 
     setSidebarQuickPayment(amount) {
-        const input = document.getElementById('sidebar-payment-amount');
-        if (input) {
-            input.value = amount;
-            this.updateSidebarPaymentInfo();
-        }
+        this.setAmountInputValue('sidebar-payment-amount', amount);
+        this.updateSidebarPaymentInfo();
     }
 
     updateSidebarPaymentInfo() {
@@ -525,7 +522,7 @@ class POSSystem {
         const cartDiscountInput = document.getElementById('cart-discount');
         const discountInput = parseFloat(cartDiscountInput ? cartDiscountInput.value : 0) || 0;
         const amountInput = document.getElementById('sidebar-payment-amount');
-        const payment = parseFloat(amountInput ? amountInput.value : 0) || 0;
+        const payment = this.parseAmountInput(amountInput ? amountInput.value : '');
         const deliveryMethod = document.querySelector('.sidebar-delivery-btn.active')?.dataset.method || 'pickup';
         const shippingBase = this.getShippingFee(deliveryMethod);
         const feeEnabledEl = document.getElementById('sidebar-delivery-fee-enabled');
@@ -584,7 +581,7 @@ class POSSystem {
         const cartDiscountInput = document.getElementById('cart-discount');
         const discountInput = parseFloat(cartDiscountInput ? cartDiscountInput.value : 0) || 0;
         const amountInput = document.getElementById('sidebar-payment-amount');
-        const payment = parseFloat(amountInput ? amountInput.value : 0) || 0;
+        const payment = this.parseAmountInput(amountInput ? amountInput.value : '');
 
         // Metode pembayaran
         let method = 'cash';
@@ -834,6 +831,39 @@ class POSSystem {
     }
 
     // Utility
+    parseAmountInput(value) {
+        const digits = String(value ?? '').replace(/\D/g, '');
+        return digits ? parseInt(digits, 10) : 0;
+    }
+
+    formatAmountInput(num) {
+        const n = Math.max(0, Math.round(Number(num) || 0));
+        return n.toLocaleString('id-ID');
+    }
+
+    setAmountInputValue(idOrEl, amount) {
+        const el = typeof idOrEl === 'string' ? document.getElementById(idOrEl) : idOrEl;
+        if (!el) return;
+        el.value = this.formatAmountInput(amount);
+    }
+
+    bindAmountInput(input, onChange) {
+        if (!input) return;
+        const applyFormat = (allowEmpty) => {
+            const digits = String(input.value ?? '').replace(/\D/g, '');
+            if (allowEmpty && digits === '') {
+                input.value = '';
+                if (typeof onChange === 'function') onChange();
+                return;
+            }
+            const parsed = digits ? parseInt(digits, 10) : 0;
+            input.value = this.formatAmountInput(parsed);
+            if (typeof onChange === 'function') onChange();
+        };
+        input.addEventListener('input', () => applyFormat(true));
+        input.addEventListener('blur', () => applyFormat(false));
+    }
+
     formatRupiah(num) {
         return 'Rp ' + num.toLocaleString('id-ID');
     }

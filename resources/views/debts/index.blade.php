@@ -14,8 +14,15 @@
             --debt-surface-2: var(--ps-surface, #1a3327);
             --debt-surface-head: #162e22;
             --debt-border: var(--ps-border, #2a4a37);
-            font-family: var(--font-sans);
+            font-family: var(--wn-font, 'Segoe UI', system-ui, sans-serif);
             color: var(--debt-fg);
+        }
+
+        /* Angka rupiah/nota: bukan font monospace (0 polos tanpa garis diagonal) */
+        .debt-premium-page .debt-num {
+            font-family: var(--wn-font, 'Segoe UI', system-ui, sans-serif) !important;
+            font-variant-numeric: lining-nums !important;
+            font-feature-settings: normal !important;
         }
 
         .debt-premium-shell {
@@ -223,8 +230,9 @@
         }
 
         .debt-kpi-value {
-            font-family: var(--font-sans);
-            font-variant-numeric: tabular-nums;
+            font-family: var(--wn-font, 'Segoe UI', system-ui, sans-serif);
+            font-variant-numeric: lining-nums;
+            font-feature-settings: normal;
             font-size: 1.2rem;
             font-weight: 700;
             color: var(--debt-fg);
@@ -1101,9 +1109,9 @@
                                         @endif
                                     </td>
                                     <td class="text-center" data-label="Nota aktif">{{ $group['invoice_count'] }}</td>
-                                    <td class="text-end debt-cell-strong font-monospace" data-label="Total sisa">
+                                    <td class="text-end debt-cell-strong debt-num" data-label="Total sisa">
                                         Rp {{ number_format($group['total_remaining'], 0, ',', '.') }}</td>
-                                    <td class="text-end font-monospace" data-label="Progres">{{ number_format($gPayPct, 0) }}%</td>
+                                    <td class="text-end debt-num" data-label="Progres">{{ number_format($gPayPct, 0) }}%</td>
                                     <td class="text-end debt-action-cell" data-label="Aksi">
                                         <button type="button" class="debt-btn-expand" data-debt-toggle="#debt-grp-{{ $loop->index }}"
                                             aria-expanded="false" aria-controls="debt-grp-{{ $loop->index }}">Lihat &amp; Catat Bayar</button>
@@ -1134,7 +1142,7 @@
                                                                     <td>{{ $d->sale->invoice_number ?? '—' }}</td>
                                                                     <td>{{ $d->due_date ? $d->due_date->format('d/m/Y') : '—' }}
                                                                     </td>
-                                                                    <td class="text-end font-monospace">Rp
+                                                                    <td class="text-end debt-num">Rp
                                                                         {{ number_format($d->remaining_amount, 0, ',', '.') }}
                                                                     </td>
                                                                     <td class="text-end"><a
@@ -1155,9 +1163,10 @@
                                                         <label for="bulk-amount-{{ $loop->index }}">Nominal
                                                             cicilan (Rp)</label>
                                                         <input id="bulk-amount-{{ $loop->index }}" name="amount"
-                                                            type="number" step="0.01" min="0.01"
-                                                            max="{{ $group['total_remaining'] }}" required
-                                                            placeholder="Contoh: 500000">
+                                                            type="text" data-amount-input
+                                                            data-max-amount="{{ (int) round($group['total_remaining']) }}"
+                                                            inputmode="numeric" autocomplete="off" required
+                                                            placeholder="Contoh: 500.000">
                                                     </div>
                                                     <div>
                                                         <label for="bulk-date-{{ $loop->index }}">Tanggal
@@ -1262,17 +1271,17 @@
                                 <tr data-debt-row="txn" data-search="{{ $rowHaystack }}">
                                     <td class="debt-cell-strong" data-label="Pelanggan">{{ $debt->customer_name }}</td>
                                     <td data-label="No. HP">{{ $debt->customer_phone ?: '—' }}</td>
-                                    <td class="font-monospace" data-label="Nota">{{ $invoiceNo }}</td>
-                                    <td class="font-monospace" data-label="Jatuh tempo">
+                                    <td class="debt-num" data-label="Nota">{{ $invoiceNo }}</td>
+                                    <td class="debt-num" data-label="Jatuh tempo">
                                         {{ $debt->due_date ? $debt->due_date->format('d/m/Y') : '—' }}</td>
                                     <td data-label="Status"><span class="debt-status-badge {{ $statusClass }}">{{ $statusLabel }}</span></td>
-                                    <td class="text-end font-monospace" data-label="Total">Rp
+                                    <td class="text-end debt-num" data-label="Total">Rp
                                         {{ number_format($debt->total_amount, 0, ',', '.') }}</td>
-                                    <td class="text-end font-monospace" data-label="Dibayar">Rp
+                                    <td class="text-end debt-num" data-label="Dibayar">Rp
                                         {{ number_format($debt->paid_amount, 0, ',', '.') }}</td>
-                                    <td class="text-end debt-cell-strong font-monospace" data-label="Sisa">Rp
+                                    <td class="text-end debt-cell-strong debt-num" data-label="Sisa">Rp
                                         {{ number_format($debt->remaining_amount, 0, ',', '.') }}</td>
-                                    <td class="text-end font-monospace" data-label="Progres">{{ number_format($payPct, 0) }}%</td>
+                                    <td class="text-end debt-num" data-label="Progres">{{ number_format($payPct, 0) }}%</td>
                                     <td class="text-end" data-label="Aksi">
                                         <a href="{{ route('debts.show', $debt) }}" class="debt-btn-detail">Lihat</a>
                                     </td>
@@ -1307,6 +1316,7 @@
 @endsection
 
 @push('scripts')
+    <script src="{{ url('js/amount-input-format.js') }}?v={{ time() }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('[data-debt-toggle]').forEach((btn) => {

@@ -52,18 +52,23 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
     public function map($sale): array
     {
         static $no = 1;
+        $saleDate = $sale->sale_date ?? $sale->created_at;
+        $formattedDate = $saleDate instanceof \DateTimeInterface
+            ? Carbon::instance($saleDate)->format('d/m/Y H:i')
+            : Carbon::parse($saleDate)->format('d/m/Y H:i');
+
         return [
             $no++,
-            $sale->created_at->format('d/m/Y H:i'),
+            $formattedDate,
             $sale->invoice_number ?? '-',
             $sale->user->name ?? '-',
             $sale->customer_name ?? '-',
             $sale->total_items ?? 0,
-            'Rp ' . number_format($sale->total_amount ?? 0, 0, ',', '.'),
-            'Rp ' . number_format($sale->payment_amount ?? 0, 0, ',', '.'),
-            'Rp ' . number_format($sale->change_amount ?? 0, 0, ',', '.'),
+            'Rp '.number_format($sale->total_amount ?? 0, 0, ',', '.'),
+            'Rp '.number_format($sale->payment_amount ?? 0, 0, ',', '.'),
+            'Rp '.number_format($sale->change_amount ?? 0, 0, ',', '.'),
             $sale->payment_method ?? '-',
-            $sale->status ?? 'Completed'
+            $sale->status ?? 'Completed',
         ];
     }
 
@@ -124,8 +129,20 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
         $periodText = [
             'daily' => 'Harian',
             'weekly' => 'Mingguan',
-            'monthly' => 'Bulanan'
+            'monthly' => 'Bulanan',
         ];
+
+        $startDate = $this->data['filters']['start_date'] ?? null;
+        $endDate = $this->data['filters']['end_date'] ?? null;
+
+        if ($startDate && $endDate && ! $this->period) {
+            return 'Laporan Penjualan '.Carbon::parse($startDate)->format('d/m/Y')
+                .' - '.Carbon::parse($endDate)->format('d/m/Y');
+        }
+
+        if (! $this->period) {
+            return 'Laporan Penjualan - '.Carbon::now()->format('d/m/Y');
+        }
 
         $dateText = $this->date ? Carbon::parse($this->date)->format('d/m/Y') : Carbon::now()->format('d/m/Y');
 

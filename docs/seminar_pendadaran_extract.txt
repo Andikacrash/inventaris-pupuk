@@ -1,0 +1,367 @@
+PAGES 30
+
+---PAGE 1---
+RANCANG BANGUN APLIKASI UNTUK PENGELOLAAN NILAI SISWA DENGAN
+MENGGUNAKAN METODE MODIFIED WATERFALL
+(SUDI KASUS : SMK NEGERI 1 LEBONG)
+Ali Tarmuji, S.T., 
+M.Cs.
+Dosen Penguji 1
+J e f r e e  F a h a n a ,  S . T . ,
+M . K o m .
+D o s e n  P e m b i m b i n g
+MUHAMMAD AGENG ZAYEM WAHID
+2200018268
+Bambang Robi’in, S.T.,
+M.T.
+Dosen Penguji 2
+
+---PAGE 2---
+3
+M e t o d o l o g i  P e n e l i t i a n
+1
+2
+P e n d a h u l u a n
+T i n j a u a n  P u s t a k a
+4
+H a s i l  d a n  P e m b a h a s a n
+5
+K e s i m p u l a n
+d a n  S a r a n
+Pembahasan
+
+
+---PAGE 3---
+Pendahuluan
+Latar Belakang
+Permasalahan
+Solusi
+Tujuan
+1.Pengelolaan nilai siswa masih dilakukan secara manual.
+2.Rentan terhadap kesalahan, memerlukan waktu lama, dan kurang transparan.
+1.Aplikasi pengelolaan nilai siswa berbasis web.
+2.Terintegrasi antara guru, sekolah, siswa, dan orang tua.
+1.Meningkatkan efisiensi pengelolaan nilai.
+2.Menjamin akurasi dan transparansi data akademik.
+
+---PAGE 4---
+Batasan Masalah Penelitian
+1.Pengelolaan nilai siswa masih dilakukan secara manual oleh guru.
+2.Sekolah belum memiliki sistem digital pendukung pengelolaan nilai.
+3.Orang tua belum memiliki akses transparan terhadap nilai siswa.
+Pendahuluan
+
+---PAGE 5---
+Rumusan Masalah
+1.Bagaimana merancang dan membangun aplikasi pengelolaan nilai siswa dengan
+metode Modified Waterfall.
+2.Bagaimana hasil pengujian sistem dari sisi fungsionalitas dan usability.
+Pendahuluan
+
+---PAGE 6---
+Pendahuluan
+Tujuan Peneltian
+1.Menghasilkan aplikasi pengelolaan nilai siswa berbasis web.
+2.Mengetahui kinerja sistem melalui pengujian Black Box dan SUS.
+1.Guru, pengelolaan nilai lebih mudah dan akurat.
+2.Sekolah, data akademik lebih terstruktur dan cepat diakses.
+3.Siswa & Orang Tua, akses nilai lebih mudah dan transparan.
+Manfaat Peneltian
+
+---PAGE 7---
+Tinjauan Pustaka
+Kajian Peneltian Terdahulu
+1.Penelitian sebelumnya mengembangkan sistem pengelolaan nilai berbasis web
+2.Mayoritas menggunakan metode Waterfall
+3.Sistem terbukti meningkatkan efisiensi, akurasi, dan kecepatan pengolahan nilai
+4.Penelitian ini menggunakan Modified Waterfall dan pengujian usability (SUS)
+
+---PAGE 8---
+Tinjauan Pustaka
+Landasan Teori
+1. Rancang Bangun
+2. Aplikasi berbasis web
+3. Sistem Pengolahan Nilai
+4. Modified Waterfall
+5. Unified Modeling Language (UML)
+6. Pengujian Black Box 
+7. Pengujian System Usability Scale (SUS)
+
+---PAGE 9---
+Metodologi Peneltian
+Metode Pengumpulan Data
+Data Primer
+1.Wawancara
+2.Observasi
+Data Sekunder
+1.Dokumen Sekolah
+2.Literatur
+
+---PAGE 10---
+Metodologi Peneltian
+Tahapan Peneltian
+
+---PAGE 11---
+Hasil dan Pembahasan
+Pengumpulan Data
+1.Guru membutuhkan input nilai cepat dan perhitungan nilai otomatis
+2.Wali kelas membutuhkan rekap nilai yang akurat dan mudah diakses
+3.Admin membutuhkan pengelolaan data akademik yang terstruktur dan aman
+4.Siswa membutuhkan akses nilai yang cepat melalui web
+
+---PAGE 12---
+Pengguna SIstem
+1.Admin
+2.Guru
+3.Siswa
+4.Wali Siswa
+1.Admin: kelola data
+akademik dan pengguna
+2.Guru: input dan rekap
+nilai otomatis
+3.Siswa & Wali: akses nilai
+secara mandiri
+1.Keamanan dan hak akses
+2.Kinerja cepat dan stabil
+3.Antarmuka mudah
+digunakan (SUS ≥  80)
+Kebutuhan Fungsional Kebutuhan NonFungsional
+1.Keamanan dan hak
+akses
+2.Kinerja cepat dan stabil
+3.Antarmuka mudah
+digunakan (SUS ≥  80)
+Analisis
+
+---PAGE 13---
+Pembuatan Desain
+Use Case Diagram 
+1.Menggambarkan interaksi antara pengguna
+dan sistem
+2.Menunjukkan fungsi utama sesuai hak akses
+3.Pengguna: Admin, Guru, Siswa, Wali Siswa
+
+---PAGE 14---
+A c t i v i t y  D i a g r a m
+A d m i n  K e l o l a  D a t a
+
+---PAGE 15---
+A c t i v i t y  D i a g r a m
+G u r u  d a n  W a l i  K e l a s
+
+---PAGE 16---
+A c t i v i t y  D i a g r a m
+S i s w a  
+
+---PAGE 17---
+E R D
+E n t i t y  R e l a t i o n s h i p  D i a g r a m
+
+---PAGE 18---
+U s e r  I n t e r f a c e
+H a l a m a n  L o g i n
+
+---PAGE 19---
+U s e r  I n t e r f a c e
+D a s h b o a r d  A d m i n
+
+---PAGE 20---
+U s e r  I n t e r f a c e
+D a s h b o a r d  G u r u
+
+---PAGE 21---
+U s e r  I n t e r f a c e
+G u r u  I n p u t  N i l a i
+
+---PAGE 22---
+U s e r  I n t e r f a c e
+W a l i  K e l a s  R e k a p  N i l a i
+
+---PAGE 23---
+U s e r  I n t e r f a c e
+S i s w a  L i h a t  N i l a i
+
+---PAGE 24---
+U s e r  I n t e r f a c e
+W a l i  S i s w a  L i h a t  N i l a i
+
+---PAGE 25---
+Balck Box Testing - Pengujian fungsional sistemberdasarkan input dan output tanpa melihat kodeprogram.
+System Usability Scale (SUS) - Pengujian usability untukmengukur tingkat kemudahan dan penerimaanpengguna terhadap sistem.
+Pengujian
+
+---PAGE 26---
+No Resp
+onde
+Q1 Q2 Q3 Q4 Q5 Q6 Q7 Q8 Q9 Q10 Skor
+Awal
+Skor
+SUS
+1 Resp
+onde
+4 2 4 3 4 4 4 2 4 4 25 62,5
+2 Resp
+onde
+5 2 5 1 5 1 5 1 5 1 39 97,5
+3 Resp
+onde
+5 1 5 1 5 1 5 1 5 1 40 100
+4 Resp
+onde
+5 1 5 1 5 1 5 1 5 1 40 100
+5 Resp
+onde
+5 2 5 1 5 1 5 1 5 1 39 97,5
+6 Resp
+onde
+4 4 3 3 5 5 5 4 4 4 21 52,5
+7 Resp
+onde
+4 4 3 3 5 5 5 4 4 4 21 52,5
+8 Resp
+onde
+4 3 4 4 5 2 3 3 4 4 24 60
+9 Resp
+onde
+5 1 5 1 5 1 5 1 5 2 39 97,5
+10 Resp
+onde
+5 1 5 1 5 1 5 1 5 1 40 100
+11 Resp
+onde
+5 1 5 1 5 1 4 1 5 1 39 97,5
+12 Resp
+onde
+5 1 5 1 5 1 5 1 5 2 39 97,5
+13 Resp
+onde
+5 2 5 1 5 1 5 2 5 1 38 95
+14 Resp
+onde
+5 1 5 1 5 1 5 1 5 5 36 90
+15 Resp
+onde
+5 1 5 1 5 1 5 1 5 1 40 100
+16 Resp
+onde
+5 1 5 1 5 1 5 1 5 1 40 100
+17 Resp
+onde
+5 1 5 1 5 1 5 1 5 1 40 100
+18 Resp
+onde
+5 1 5 1 5 1 5 1 5 1 40 100
+19 Resp
+onde
+5 1 5 1 5 1 4 1 4 4 35 87,5
+20 Resp
+onde
+5 1 5 1 5 1 5 1 5 1 40 100
+Total 1787,5
+Rata-rata 89,375
+Pengujian
+S y s t e m  U s a b i l i t y  S c a l e
+Berdasarkan hasil pengujian System Usability Scale (SUS), sistem
+memperoleh nilai rata-rata 89,375 yang berada pada kategori
+excellent usability. Hasil ini menunjukkan bahwa sistem memiliki
+tingkat kemudahan penggunaan yang sangat baik dan dapat diterima
+oleh pengguna, sehingga dinilai layak untuk diterapkan dalam
+mendukung pengelolaan nilai siswa di SMK Negeri 1 Lebong.
+
+---PAGE 27---
+No Modul Fitur yang
+Diuji
+Skenario
+Pengujian
+Hasil yang
+Diharapkan
+Hasil
+Pengujian
+1 AutentikasiLogin
+pengguna
+Input
+username
+Pengguna
+berhasil Valid
+2 AutentikasiLogin
+pengguna
+Input
+username
+Sistem
+menampilka Valid
+3 Admin Kelola data
+kelas
+Menambahk
+an data
+Data kelas
+berhasil Valid
+4 Admin Kelola data
+mata
+Menambahk
+an mata
+Data mata
+pelajaran Valid
+5 Guru Input nilai
+siswa
+Menginput
+nilai materi
+Nilai berhasil
+disimpan Valid
+6 Guru Kunci nilai Mengunci
+nilai mata
+Nilai tidak
+dapat Valid
+7 Wali Kelas Rekap nilai
+kelas
+Menampilka
+n rekap nilai
+Rekap nilai
+kelas Valid
+8 Siswa Lihat nilai
+semester
+Mengakses
+nilai
+Nilai
+ditampilkan Valid
+9 Siswa Riwayat nilaiMengakses
+riwayat nilai
+Riwayat nilai
+ditampilkan Valid
+10 Wali Siswa Lihat nilai
+anak
+Mengakses
+nilai siswa
+Nilai anak
+ditampilkan Valid
+… … … … … …
+129 … … … … …
+Pengujian
+B l a c k b o x  T e s t i n g
+Berdasarkan hasil pengujian menggunakan metode Black Box Testing,
+seluruh fungsi utama sistem, meliputi proses login, pengelolaan data,
+input dan rekap nilai, serta akses nilai oleh siswa dan wali siswa,
+berjalan sesuai dengan kebutuhan yang telah ditetapkan. Hasil ini
+menunjukkan bahwa sistem berfungsi dengan baik dan layak
+digunakan.
+
+---PAGE 28---
+Kesimpulan dan Saran
+Kesimpulan
+Aplikasi Pengelolaan Nilai Siswa berbasis web berhasil diterapkan sebagai solusi pengelolaan
+nilai yang sebelumnya dilakukan secara manual.
+Sistem membantu guru dalam pencatatan, pengolahan, dan rekapitulasi nilai secara lebih
+terstruktur, cepat, dan akurat.
+Sistem menyediakan akses nilai yang transparan bagi siswa dan wali siswa sesuai hak akses.
+Hasil pengujian menunjukkan seluruh fungsi sistem berjalan dengan baik (Black Box Testing
+100%) dan memiliki usability sangat baik (SUS = 89,375).
+
+---PAGE 29---
+Kesimpulan dan Saran
+Saran
+Pengembangan fitur lanjutan, seperti presensi siswa.
+Pengembangan versi mobile untuk meningkatkan fleksibilitas dan
+kemudahan akses pengguna.
+
+---PAGE 30---
+
+

@@ -91,22 +91,37 @@ class ReportController extends Controller
     public function downloadSalesExcel(Request $request)
     {
         $request->validate([
-            'period' => 'required|in:daily,weekly,monthly',
+            'period' => 'nullable|in:daily,weekly,monthly',
             'date' => 'nullable|date',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
             'user_id' => 'nullable|exists:users,id',
             'payment_method' => 'nullable|string',
-            'category_id' => 'nullable|exists:categories,id'
+            'category_id' => 'nullable|exists:categories,id',
+            'product' => 'nullable|string|max:255',
+            'customer' => 'nullable|string|max:255',
+            'show_cancelled' => 'nullable|boolean',
+            'show_deleted' => 'nullable|boolean',
         ]);
 
-        $period = $request->period;
-        $date = $request->date;
-        $filters = $request->only(['user_id', 'payment_method', 'category_id']);
+        $period = $request->period ?: null;
+        $date = $request->date ?? $request->start_date;
+        $filters = $request->only([
+            'user_id', 'payment_method', 'category_id',
+            'product', 'customer', 'show_cancelled', 'show_deleted',
+            'start_date', 'end_date',
+        ]);
 
-        // Generate data laporan
         $data = $this->reportService->generateSalesReport($period, $date, $filters);
 
-        $dateText = $date ? Carbon::parse($date)->format('Y-m-d') : Carbon::now()->format('Y-m-d');
-        $filename = "laporan_penjualan_{$period}_{$dateText}.xlsx";
+        if ($request->start_date && $request->end_date && ! $period) {
+            $filename = 'laporan_penjualan_'.$request->start_date.'_sd_'.$request->end_date.'.xlsx';
+        } elseif ($period) {
+            $dateText = $date ? Carbon::parse($date)->format('Y-m-d') : Carbon::now()->format('Y-m-d');
+            $filename = "laporan_penjualan_{$period}_{$dateText}.xlsx";
+        } else {
+            $filename = 'laporan_penjualan_'.Carbon::now()->format('Y-m-d').'.xlsx';
+        }
 
         return Excel::download(new SalesReportExport($data, $period, $date), $filename);
     }
@@ -168,20 +183,25 @@ class ReportController extends Controller
         ]);
 
         $request->validate([
-            'period' => 'required|in:daily,weekly,monthly',
+            'period' => 'nullable|in:daily,weekly,monthly',
             'date' => 'nullable|date',
             'product_id' => 'nullable|exists:products,id',
+            'type' => 'nullable|in:in,out',
         ]);
 
-        $period = $request->period;
+        $period = $request->period ?: null;
         $date = $request->date;
-        $filters = $request->only(['product_id']);
+        $filters = $request->only(['product_id', 'type']);
 
         // Generate data laporan
         $data = $this->reportService->generateStockReport($period, $date, $filters);
 
-        $dateText = $date ? Carbon::parse($date)->format('Y-m-d') : Carbon::now()->format('Y-m-d');
-        $filename = "laporan_stok_{$period}_{$dateText}.xlsx";
+        if ($period) {
+            $dateText = $date ? Carbon::parse($date)->format('Y-m-d') : Carbon::now()->format('Y-m-d');
+            $filename = "laporan_stok_{$period}_{$dateText}.xlsx";
+        } else {
+            $filename = 'laporan_stok_semua_'.Carbon::now()->format('Y-m-d').'.xlsx';
+        }
 
         return Excel::download(new StockReportExport($data, $period, $date), $filename);
     }

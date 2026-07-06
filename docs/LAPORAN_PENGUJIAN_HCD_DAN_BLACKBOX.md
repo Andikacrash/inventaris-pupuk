@@ -205,6 +205,8 @@ php artisan serve
 
 ### Modul A — Autentikasi dan Hak Akses
 
+> **Tabel format skripsi (semua modul, 103 skenario):** lihat **`docs/BAB_4_5_2_BLACKBOX_SEMUA_MODUL.md`** — Tabel 4.16 s.d. 4.27 (login, hak akses, barang, supplier, POS, hutang, cicilan, laporan, dashboard, stok). Modul registrasi saja: `docs/BAB_4_5_2_TABEL_REGISTRASI_USER.md`.
+
 | ID | Modul | Deskripsi | Langkah uji | Data uji | Hasil yang diharapkan | Hasil aktual | Keterangan |
 |----|-------|-----------|-------------|----------|----------------------|--------------|------------|
 | BB-01 | Login | Login berhasil sebagai admin | 1. Buka `/login` 2. Isi email & password 3. Klik masuk | admin@example.com / password | Redirect ke halaman utama, sesi aktif | Lulus | Uji otomatis |
@@ -263,7 +265,7 @@ php artisan serve
 | BB-26 | Laporan | Unduh Excel penjualan | 1. Unduh Excel | periode valid | File Excel terbuka | Lulus | Uji otomatis |
 | BB-27 | Laporan | Cari transaksi | 1. Filter nama barang | nama produk | Tabel terfilter | Lulus | Uji otomatis |
 | BB-28 | Laporan stok | Halaman laporan stok | 1. Buka `/stock-reports` | — | Data stok tampil | Lulus | Uji otomatis |
-| BB-29 | Laporan stok | Unduh PDF stok | 1. Unduh PDF stok | — | File PDF terunduh | Lulus | Verifikasi manual browser |
+| BB-29 | Laporan stok | Unduh Excel stok | 1. Buka `/stock-reports` 2. Klik Unduh Laporan (bulanan) | periode valid | File `.xlsx` terunduh & terbuka | *(isi setelah uji)* | Verifikasi manual browser |
 
 ---
 

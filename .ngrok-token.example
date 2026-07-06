@@ -1,0 +1,4 @@
+# Salin file ini menjadi .ngrok-token (tanpa .example)
+# Isi satu baris: authtoken dari https://dashboard.ngrok.com/get-started/your-authtoken
+# Contoh:
+# 2abc123def456ghi789jkl012mno345pqr678stu901vwx

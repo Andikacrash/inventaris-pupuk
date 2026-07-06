@@ -620,10 +620,13 @@
 
         .product-search-wrap svg {
             position: absolute;
-            left: 12px;
+            left: 14px;
             top: 50%;
             transform: translateY(-50%);
             color: var(--prod-muted);
+            pointer-events: none;
+            z-index: 1;
+            flex-shrink: 0;
         }
 
         .product-search-wrap input,
@@ -637,7 +640,10 @@
             color: var(--prod-ink);
         }
 
-        .product-search-wrap input { padding-left: 36px; }
+        .product-search-wrap input {
+            width: 100%;
+            padding: 10px 14px 10px 42px !important;
+        }
         .toolbar-select { width: 200px; }
 
         .product-search-wrap input::placeholder {
@@ -1057,21 +1063,24 @@
             color: var(--prod-ink);
         }
 
-        .price-input-wrap {
+        body.products-page .product-form-modal .price-input-wrap {
             display: flex;
             align-items: stretch;
-            border: 1px solid var(--prod-border);
-            border-radius: 10px;
-            background: var(--prod-bg);
+            min-height: 44px;
+            border: 1.5px solid #a89888 !important;
+            border-radius: 10px !important;
+            background-color: #faf8f5 !important;
             overflow: hidden;
+            box-shadow: inset 0 1px 2px rgba(30, 23, 16, 0.06);
         }
 
-        .price-input-wrap:focus-within {
-            border-color: var(--prod-accent);
-            box-shadow: 0 0 0 3px rgba(26, 92, 66, 0.18);
+        body.products-page .product-form-modal .price-input-wrap:focus-within {
+            border-color: var(--prod-accent) !important;
+            box-shadow: 0 0 0 3px rgba(26, 92, 66, 0.18) !important;
+            background-color: #faf8f5 !important;
         }
 
-        .price-prefix {
+        body.products-page .product-form-modal .price-prefix {
             position: static;
             flex: 0 0 auto;
             display: flex;
@@ -1082,21 +1091,26 @@
             font-weight: 600;
             pointer-events: none;
             user-select: none;
+            border-right: 1px solid var(--prod-border);
+            background: #ede8e1;
         }
 
-        body.products-page .ps-content .product-form-modal .price-input-wrap .price-display {
+        body.products-page .product-form-modal .price-input-wrap .price-display {
             flex: 1 1 auto;
             min-width: 0;
+            min-height: 42px !important;
             border: none !important;
             border-radius: 0 !important;
-            padding-left: 4px !important;
+            padding-left: 10px !important;
             padding-right: 12px !important;
             box-shadow: none !important;
             background: transparent !important;
         }
 
-        body.products-page .ps-content .product-form-modal .price-input-wrap .price-display:focus {
+        body.products-page .product-form-modal .price-input-wrap .price-display:focus {
+            border: none !important;
             box-shadow: none !important;
+            outline: none !important;
         }
 
         .product-textarea {

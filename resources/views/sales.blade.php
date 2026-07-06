@@ -214,8 +214,8 @@
                                 <span class="label-icon">💵</span>
                                 Jumlah Pembayaran
                             </label>
-                            <input type="number" id="payment" class="form-input payment-input" placeholder="0"
-                                min="0">
+                            <input type="text" id="payment" class="form-input payment-input" placeholder="0"
+                                inputmode="numeric" autocomplete="off">
                             <div class="quick-payment-buttons">
                                 <button type="button" class="quick-btn" onclick="setQuickPayment(0.5)">50%</button>
                                 <button type="button" class="quick-btn" onclick="setQuickPayment(0.75)">75%</button>
@@ -337,8 +337,8 @@
                     </div>
                     <div class="sidebar-payment-amount">
                         <span class="label">Jumlah bayar</span>
-                        <input type="number" id="sidebar-payment-amount" class="sidebar-amount-input" placeholder="0"
-                            min="0">
+                        <input type="text" id="sidebar-payment-amount" class="sidebar-amount-input" placeholder="0"
+                            inputmode="numeric" autocomplete="off">
                         <div class="sidebar-quick-buttons">
                             <button type="button" onclick="setSidebarQuickPayment(50000)">Rp 50.000</button>
                             <button type="button" onclick="setSidebarQuickPayment(100000)">Rp 100.000</button>
@@ -1078,7 +1078,7 @@
                 const discountAmount = total * (discount / 100);
                 const afterDiscount = total - discountAmount;
                 const paymentAmount = Math.floor(afterDiscount * percentage);
-                document.getElementById('payment').value = paymentAmount;
+                window.posSystem.setAmountInputValue('payment', paymentAmount);
                 if (window.posSystem.updatePricing) {
                     window.posSystem.updatePricing();
                 }

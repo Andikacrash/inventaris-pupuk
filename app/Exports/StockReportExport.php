@@ -118,10 +118,14 @@ class StockReportExport implements FromCollection, WithHeadings, WithMapping, Wi
         $periodText = [
             'daily' => 'Harian',
             'weekly' => 'Mingguan',
-            'monthly' => 'Bulanan'
+            'monthly' => 'Bulanan',
         ];
 
         $dateText = $this->date ? Carbon::parse($this->date)->format('d/m/Y') : Carbon::now()->format('d/m/Y');
+
+        if (! $this->period) {
+            return "Laporan Stok Semua Data - {$dateText}";
+        }
 
         return "Laporan Stok {$periodText[$this->period]} - {$dateText}";
     }

@@ -179,9 +179,12 @@
                         <button type="button" class="stock-download-menu-item" data-stock-period="monthly" role="menuitem">
                             <i class="fas fa-file-excel"></i> Laporan Bulanan
                         </button>
+                        <button type="button" class="stock-download-menu-item" data-stock-period="all" role="menuitem">
+                            <i class="fas fa-file-excel"></i> Semua Data (sesuai filter barang)
+                        </button>
                     </div>
                     <p class="stock-download-status mb-0" id="stock-download-status" aria-live="polite">
-                        Klik tombol di atas untuk pilih periode Excel.
+                        Untuk harian/mingguan/bulanan, sesuaikan tanggal di filter dengan periode transaksi.
                     </p>
                 </div>
             </div>
@@ -237,8 +240,9 @@
                         </select>
                     </div>
                     <div class="col-6 col-md-3">
-                        <label for="date_start" class="stock-filter-label">Mulai Tanggal</label>
+                        <label for="date_start" class="stock-filter-label">Tanggal acuan</label>
                         <input type="date" class="form-control" id="date_start" value="{{ date('Y-m-d') }}">
+                        <small class="text-muted">Dipakai jika rentang waktu harian/mingguan/bulanan dipilih.</small>
                     </div>
                     <div class="col-md-3">
                         <label for="product" class="stock-filter-label">Nama Barang</label>
@@ -516,17 +520,30 @@
             if (stockDownloadBusy) return;
             stockDownloadBusy = true;
 
-            const periodLabel = { daily: 'harian', weekly: 'mingguan', monthly: 'bulanan' }[period] || period;
+            const periodLabels = {
+                daily: 'harian',
+                weekly: 'mingguan',
+                monthly: 'bulanan',
+                all: 'semua data',
+            };
+            const periodLabel = periodLabels[period] || period;
             setStockDownloadLoading(true, period, `Menyiapkan laporan ${periodLabel}...`);
 
             const date = getReferenceDateValue();
             const product = document.getElementById('product')?.value || '';
-            const params = new URLSearchParams({ period });
-            if (date) params.set('date', date);
+            const type = document.getElementById('type')?.value || '';
+            const params = new URLSearchParams();
+            if (period && period !== 'all') {
+                params.set('period', period);
+                if (date) params.set('date', date);
+            }
             if (product) params.set('product_id', product);
+            if (type) params.set('type', type);
 
             const url = `/stock-reports/download/excel?${params.toString()}`;
-            const defaultName = `laporan_stok_${period}.xlsx`;
+            const defaultName = period === 'all'
+                ? 'laporan_stok_semua.xlsx'
+                : `laporan_stok_${period}.xlsx`;
 
             let downloadedName = null;
             try {

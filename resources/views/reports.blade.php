@@ -143,7 +143,7 @@
         .sales-table-card .card-header { background: #f4f1ec !important; border-bottom: 1px solid #b8aea3 !important; color: #1e1710; font-weight: 600; font-size: 16px; }
         .sales-table thead th { background: #f4f1ec; color: #1e1710; font-size: 14px; font-weight: 600; border-color: #b8aea3; border-bottom-width: 1px; padding: 12px 14px; }
         .sales-table tbody td { background: #ede8e1; color: #1e1710; border-color: #c8bfb4; font-size: 15px; font-weight: 500; padding: 12px 14px; vertical-align: middle; }
-        .sales-table tbody td.sales-td-money { font-weight: 600; font-variant-numeric: tabular-nums; }
+        .sales-table tbody td.sales-td-money { font-weight: 600; font-variant-numeric: lining-nums; font-feature-settings: normal; }
         .sales-table tbody tr:hover td { background: #f4f1ec; }
         .sales-act-group {
             display: flex;
@@ -282,9 +282,12 @@
                         <button type="button" class="sales-download-menu-item" data-sales-period="monthly" role="menuitem">
                             <i class="fas fa-file-excel"></i> Laporan Bulanan
                         </button>
+                        <button type="button" class="sales-download-menu-item" data-sales-period="filter" role="menuitem">
+                            <i class="fas fa-file-excel"></i> Sesuai Filter Tanggal
+                        </button>
                     </div>
                     <p class="sales-download-status mb-0" id="sales-download-status" aria-live="polite">
-                        Klik tombol di atas untuk pilih periode Excel.
+                        Pilih rentang tanggal di filter, lalu unduh &quot;Sesuai Filter Tanggal&quot;.
                     </p>
                 </div>
             </div>
@@ -425,6 +428,9 @@
                                 </button>
                                 <button type="button" class="sales-download-menu-item" data-sales-period="monthly" role="menuitem">
                                     <i class="fas fa-file-excel"></i> Laporan Bulanan
+                                </button>
+                                <button type="button" class="sales-download-menu-item" data-sales-period="filter" role="menuitem">
+                                    <i class="fas fa-file-excel"></i> Sesuai Filter Tanggal
                                 </button>
                             </div>
                         </div>
@@ -919,7 +925,7 @@
             if (quickBtn && !quickBtn.dataset.boundSalesDownload) {
                 quickBtn.dataset.boundSalesDownload = '1';
                 quickBtn.addEventListener('click', function() {
-                    if (!salesDownloadBusy) downloadSalesReport('monthly');
+                    if (!salesDownloadBusy) downloadSalesReport('filter');
                 });
             }
         }
@@ -928,23 +934,38 @@
             if (salesDownloadBusy) return;
             salesDownloadBusy = true;
 
-            const periodLabel = { daily: 'harian', weekly: 'mingguan', monthly: 'bulanan' }[period] || period;
+            const periodLabels = {
+                daily: 'harian',
+                weekly: 'mingguan',
+                monthly: 'bulanan',
+                filter: 'sesuai filter tanggal',
+            };
+            const periodLabel = periodLabels[period] || period;
             setSalesDownloadLoading(true, `Menyiapkan laporan ${periodLabel}...`);
 
             const startDate = document.getElementById('start-date')?.value || '';
             const endDate = document.getElementById('end-date')?.value || '';
             const product = document.getElementById('search-product')?.value?.trim() || '';
             const customer = document.getElementById('search-customer')?.value?.trim() || '';
-            const params = new URLSearchParams({ period });
+            const showCancelled = document.getElementById('show-cancelled')?.checked || false;
+
+            const params = new URLSearchParams();
+            if (period && period !== 'filter') {
+                params.set('period', period);
+                if (startDate) params.set('date', startDate);
+            }
             if (startDate && endDate) {
                 params.set('start_date', startDate);
                 params.set('end_date', endDate);
             }
             if (product) params.set('product', product);
             if (customer) params.set('customer', customer);
+            if (showCancelled) params.set('show_cancelled', 'true');
 
             const url = `/api/reports/download/sales/excel?${params.toString()}`;
-            const defaultName = `laporan_penjualan_${period}.xlsx`;
+            const defaultName = period === 'filter' && startDate && endDate
+                ? `laporan_penjualan_${startDate}_sd_${endDate}.xlsx`
+                : `laporan_penjualan_${period || 'filter'}.xlsx`;
             let downloadedName = null;
 
             try {

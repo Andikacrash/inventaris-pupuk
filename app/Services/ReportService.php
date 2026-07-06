@@ -14,25 +14,35 @@ class ReportService
     /**
      * Generate laporan penjualan berdasarkan periode
      */
-    public function generateSalesReport($period, $date = null, $filters = [])
+    public function generateSalesReport($period = null, $date = null, $filters = [])
     {
         // Eager-load the defined relationship `saleItems` (avoid relying on alias)
         $query = Sale::with(['saleItems.product', 'user'])
             ->select([
                 'sales.*',
                 DB::raw('SUM(sale_items.quantity) as total_items'),
-                DB::raw('SUM(sale_items.quantity * sale_items.unit_price) as total_amount')
+                DB::raw('SUM(sale_items.quantity * sale_items.unit_price) as total_amount'),
             ])
             ->join('sale_items', 'sales.id', '=', 'sale_items.sale_id')
             ->groupBy('sales.id');
 
-        // Filter berdasarkan periode
-        $this->applyPeriodFilter($query, $period, $date);
+        $startDate = $filters['start_date'] ?? null;
+        $endDate = $filters['end_date'] ?? null;
+        $useRange = $startDate && $endDate && ! $period;
 
-        // Filter tambahan
+        if ($useRange) {
+            $query->whereBetween('sales.sale_date', [
+                Carbon::parse($startDate)->startOfDay(),
+                Carbon::parse($endDate)->endOfDay(),
+            ]);
+        } elseif ($period) {
+            $anchorDate = $date ?? $startDate;
+            $this->applyPeriodFilter($query, $period, $anchorDate);
+        }
+
         $this->applyAdditionalFilters($query, $filters);
 
-        $sales = $query->get();
+        $sales = $query->orderByDesc('sales.sale_date')->orderByDesc('sales.id')->get();
 
         // Hitung ringkasan
         $summary = $this->calculateSalesSummary($sales);
@@ -42,7 +52,7 @@ class ReportService
             'summary' => $summary,
             'period' => $period,
             'date' => $date,
-            'filters' => $filters
+            'filters' => $filters,
         ];
     }
 
@@ -60,15 +70,23 @@ class ReportService
                 ])
                 ->join('products', 'stock_movements.product_id', '=', 'products.id');
 
-            // Filter berdasarkan periode
-            $this->applyPeriodFilter($query, $period, $date);
+            // Filter berdasarkan periode (opsional — kosong = semua data)
+            if ($period) {
+                $this->applyPeriodFilter($query, $period, $date);
+            }
 
             // Filter tambahan
-            if (isset($filters['product_id'])) {
+            if (! empty($filters['product_id'])) {
                 $query->where('stock_movements.product_id', $filters['product_id']);
             }
 
-            $movements = $query->get();
+            if (! empty($filters['type']) && in_array($filters['type'], ['in', 'out'], true)) {
+                $query->where('stock_movements.type', $filters['type']);
+            }
+
+            $movements = $query->orderByDesc('stock_movements.created_at')
+                ->orderByDesc('stock_movements.id')
+                ->get();
             $this->enrichMovementsWithRunningStock($movements);
 
             // Hitung ringkasan stok
@@ -206,19 +224,41 @@ class ReportService
      */
     private function applyAdditionalFilters($query, $filters)
     {
-        if (isset($filters['user_id'])) {
+        $showDeleted = filter_var($filters['show_deleted'] ?? false, FILTER_VALIDATE_BOOL);
+        $showCancelled = filter_var($filters['show_cancelled'] ?? false, FILTER_VALIDATE_BOOL);
+
+        if (! $showDeleted) {
+            $query->where('sales.status', '!=', 'deleted');
+        }
+
+        if (! $showCancelled) {
+            $query->where('sales.status', '!=', 'cancelled');
+        }
+
+        if (! empty($filters['user_id'])) {
             $query->where('sales.user_id', $filters['user_id']);
         }
 
-        if (isset($filters['payment_method'])) {
+        if (! empty($filters['payment_method'])) {
             $query->where('sales.payment_method', $filters['payment_method']);
         }
 
-        if (isset($filters['category_id'])) {
-            // Use saleItems relation for filtering by product category
+        if (! empty($filters['category_id'])) {
             $query->whereHas('saleItems.product', function ($q) use ($filters) {
                 $q->where('category_id', $filters['category_id']);
             });
+        }
+
+        if (! empty($filters['product'])) {
+            $product = trim((string) $filters['product']);
+            $query->whereHas('saleItems.product', function ($q) use ($product) {
+                $q->where('name', 'like', '%'.$product.'%');
+            });
+        }
+
+        if (! empty($filters['customer'])) {
+            $customer = trim((string) $filters['customer']);
+            $query->where('sales.customer_name', 'like', '%'.$customer.'%');
         }
     }
 
